@@ -20,8 +20,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window = UIWindow(windowScene: scene)
         window?.rootViewController = TapBarController()
         window?.makeKeyAndVisible()
-        
-//        AppAppearance.setUpAppearance()
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
