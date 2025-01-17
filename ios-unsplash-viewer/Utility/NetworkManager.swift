@@ -14,7 +14,7 @@ class NetworkManager {
     
     private init() {}
     
-    func unsplashTopicsPhotos(_ topicId: String, _ page: Int, _ perPage: Int) {
+    func unsplashTopicsPhotos(_ topicId: String, _ page: Int, _ perPage: Int, completionHandler: @escaping ([TopicsPhotos]) -> Void) {
         let url = APIUrl.unsplash + APIPathParamUnsplash.topicsPhotos.pathParam(topicId: topicId, page: page, perPage: perPage)
         
         let header: HTTPHeaders = [
@@ -25,7 +25,7 @@ class NetworkManager {
             
             switch response.result {
             case .success(let data):
-                print(data)
+                completionHandler(data)
                     
             case .failure(let err):
                 print(err)

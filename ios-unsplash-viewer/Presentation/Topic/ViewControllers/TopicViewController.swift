@@ -6,26 +6,35 @@
 //
 
 import UIKit
+import Kingfisher
 
 class TopicViewController: UIViewController {
     
-    private lazy var mainView = TopicView(data)
+    //MARK: - UI Property
+    private lazy var mainView = TopicView()
     
-    private lazy var data: [[String]] = []
+    //MARK: - Property
+    private lazy var topics = [[TopicsPhotos]]()
     
+    //MARK: - Override Method
     override func loadView() {
-        print(#function)
-        
-        data = [["1"], ["2"], ["3"]]
-        
         view = mainView
     }
     
     override func viewDidLoad() {
-        print(#function)
         super.viewDidLoad()
         
-        view.backgroundColor = UIColor.gray
+        NetworkManager.shared.unsplashTopicsPhotos("golden-hour", 1, 2) { data in
+            
+            let topicBannerView = self.mainView.topicBannerView
+            topicBannerView.topicLabel.text = "골든 아워"
+            let url = URL(string: data[0].urls.regular)
+            topicBannerView.imageView.kf.setImage(with: url)
+            print("test")
+            
+        }
+        
+//        view.backgroundColor = UIColor.gray
         
         //        NetworkManager.shared.unsplashTopicsPhotos("golden-hour", 1, 1)
         //        NetworkManager.shared.unsplashTopicsPhotos("business-work", 1, 1)

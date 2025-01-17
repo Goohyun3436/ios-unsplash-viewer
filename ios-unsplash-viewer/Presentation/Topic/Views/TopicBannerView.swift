@@ -11,21 +11,12 @@ import SnapKit
 class TopicBannerView: BaseStackView {
     
     //MARK: - UI Property
-    private let topicLabel = UILabel()
+    let topicLabel = UILabel()
     private let imageScrollView = UIScrollView()
     private let imageWrapView = UIStackView()
-    private let imageView = UIImageView()
+    let imageView = UIImageView()
     private let imageView2 = UIImageView()
     private let imageView3 = UIImageView()
-    
-    var data: [String] = []
-    
-    init(_ test: [String]) {
-        data = test
-        print(#function, test)
-        
-        super.init(frame: .zero)
-    }
     
     //MARK: - Configure Method
     override func configureHierarchy() {
@@ -82,7 +73,7 @@ class TopicBannerView: BaseStackView {
         imageView.backgroundColor = .purple
         imageView2.backgroundColor = .purple
         imageView3.backgroundColor = .purple
-        topicLabel.text = data[0]
+        topicLabel.text = "test"
     }
     
 }
