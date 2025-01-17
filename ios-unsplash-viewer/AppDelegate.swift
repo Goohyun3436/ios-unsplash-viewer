@@ -2,7 +2,7 @@
 //  AppDelegate.swift
 //  ios-unsplash-viewer
 //
-//  Created by 구현 on 1/17/25.
+//  Created by Goo on 1/17/25.
 //
 
 import UIKit

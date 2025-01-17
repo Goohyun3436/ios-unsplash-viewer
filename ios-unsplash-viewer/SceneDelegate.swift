@@ -2,7 +2,7 @@
 //  SceneDelegate.swift
 //  ios-unsplash-viewer
 //
-//  Created by 구현 on 1/17/25.
+//  Created by Goo on 1/17/25.
 //
 
 import UIKit
@@ -18,7 +18,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         guard let scene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: scene)
-        window?.rootViewController = TopicViewController()
+        window?.rootViewController = TapBarController()
         window?.makeKeyAndVisible()
     }
 
