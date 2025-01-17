@@ -13,7 +13,6 @@ class TapBarController: UITabBarController {
         super.viewDidLoad()
         
         configureTBC()
-        configureAppearance()
     }
     
     private func configureTBC() {
@@ -23,20 +22,10 @@ class TapBarController: UITabBarController {
         setViewControllers([topicVC, searchVC], animated: true)
     }
     
-    private func configureAppearance() {
-        let appearance = UITabBarAppearance()
-        appearance.configureWithTransparentBackground()
-        appearance.backgroundColor = UIColor.systemBackground
-        tabBar.standardAppearance = appearance
-        tabBar.scrollEdgeAppearance = appearance
-        tabBar.tintColor = UIColor.label
-    }
-    
     private func makeVC(_ viewController: UIViewController, title: String, icon: String) -> UIViewController {
         let vc = viewController
         let nav = UINavigationController(rootViewController: vc)
         vc.navigationItem.title = title
-        nav.navigationBar.backgroundColor = UIColor.systemBackground
         nav.tabBarItem.image = UIImage(systemName: icon, withConfiguration: UIImage.SymbolConfiguration(font: .systemFont(ofSize: 16, weight: .bold)))?.withBaselineOffset(fromBottom: UIFont.systemFontSize)
         return nav
     }
