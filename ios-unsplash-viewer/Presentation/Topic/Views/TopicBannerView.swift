@@ -18,6 +18,15 @@ class TopicBannerView: BaseStackView {
     private let imageView2 = UIImageView()
     private let imageView3 = UIImageView()
     
+    var data: [String] = []
+    
+    init(_ test: [String]) {
+        data = test
+        print(#function, test)
+        
+        super.init(frame: .zero)
+    }
+    
     //MARK: - Configure Method
     override func configureHierarchy() {
         addArrangedSubview(topicLabel)
@@ -73,7 +82,7 @@ class TopicBannerView: BaseStackView {
         imageView.backgroundColor = .purple
         imageView2.backgroundColor = .purple
         imageView3.backgroundColor = .purple
-        topicLabel.text = "testsetsetset"
+        topicLabel.text = data[0]
     }
     
 }
