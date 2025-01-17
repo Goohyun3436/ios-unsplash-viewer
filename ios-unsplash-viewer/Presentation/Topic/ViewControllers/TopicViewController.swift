@@ -8,15 +8,23 @@
 import UIKit
 
 class TopicViewController: UIViewController {
+    
+    private let mainView = TopicView()
 
+    
+    override func loadView() {
+        view = mainView
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = UIColor.red
+        view.backgroundColor = UIColor.gray
         
-        NetworkManager.shared.unsplashTopicsPhotos("golden-hour", 1, 1)
-        NetworkManager.shared.unsplashTopicsPhotos("business-work", 1, 1)
-        NetworkManager.shared.unsplashTopicsPhotos("architecture-interior", 1, 1)
+        //        NetworkManager.shared.unsplashTopicsPhotos("golden-hour", 1, 1)
+        //        NetworkManager.shared.unsplashTopicsPhotos("business-work", 1, 1)
+        //        NetworkManager.shared.unsplashTopicsPhotos("architecture-interior", 1, 1)
+        
     }
     
 }
