@@ -13,6 +13,8 @@ class TopicViewController: UIViewController {
         super.viewDidLoad()
 
         view.backgroundColor = UIColor.red
+        
+        NetworkManager.shared.unsplashTopicsPhotos()
     }
 
 }

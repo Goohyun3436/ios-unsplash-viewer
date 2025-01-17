@@ -8,10 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		F8462AA62D3A6395005B82E2 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = F8462AA52D3A6395005B82E2 /* Alamofire */; };
+		F8462AE42D3A71B9005B82E2 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = F8462AE32D3A71B9005B82E2 /* .gitignore */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		F8462A492D3A1C09005B82E2 /* ios-unsplash-viewer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "ios-unsplash-viewer.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F8462AE32D3A71B9005B82E2 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -50,6 +52,7 @@
 		F8462A402D3A1C08005B82E2 = {
 			isa = PBXGroup;
 			children = (
+				F8462AE32D3A71B9005B82E2 /* .gitignore */,
 				F8462A4B2D3A1C09005B82E2 /* ios-unsplash-viewer */,
 				F8462A4A2D3A1C09005B82E2 /* Products */,
 			);
@@ -131,6 +134,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F8462AE42D3A71B9005B82E2 /* .gitignore in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
