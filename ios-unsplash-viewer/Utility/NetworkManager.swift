@@ -14,8 +14,8 @@ class NetworkManager {
     
     private init() {}
     
-    func unsplashTopicsPhotos() {
-        let url = APIUrl.unsplash + "/topics/golden-hour/photos?page=1&per_page=1"
+    func unsplashTopicsPhotos(_ topicId: String, _ page: Int, _ perPage: Int) {
+        let url = APIUrl.unsplash + APIPathParamUnsplash.topicsPhotos.pathParam(topicId: topicId, page: page, perPage: perPage)
         
         let header: HTTPHeaders = [
             "Authorization": APIKey.unsplashAccess
