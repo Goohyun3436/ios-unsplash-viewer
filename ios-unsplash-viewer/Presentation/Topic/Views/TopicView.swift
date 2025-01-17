@@ -14,17 +14,20 @@ class TopicView: BaseView {
     private let scrollView = UIScrollView()
     private let contentView = UIStackView()
     
-    let topicBannerView = TopicBannerView()
-    private let topicBannerView2 = TopicBannerView()
-    private let topicBannerView3 = TopicBannerView()
+    let topicBannerViews = [
+        TopicBannerView(),
+        TopicBannerView(),
+        TopicBannerView(),
+    ]
    
     //MARK: - Configure Method
     override func configureHierarchy() {
         addSubview(scrollView)
         scrollView.addSubview(contentView)
-        contentView.addArrangedSubview(topicBannerView)
-        contentView.addArrangedSubview(topicBannerView2)
-        contentView.addArrangedSubview(topicBannerView3)
+        
+        for item in topicBannerViews {
+            contentView.addArrangedSubview(item)
+        }
     }
     
     override func configureLayout() {

@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Kingfisher
 import SnapKit
 
 class TopicBannerView: BaseStackView {
@@ -14,18 +15,36 @@ class TopicBannerView: BaseStackView {
     let topicLabel = UILabel()
     private let imageScrollView = UIScrollView()
     private let imageWrapView = UIStackView()
-    let imageView = UIImageView()
-    private let imageView2 = UIImageView()
-    private let imageView3 = UIImageView()
+    let imageViews = [
+        UIImageView(),
+        UIImageView(),
+        UIImageView(),
+        UIImageView(),
+        UIImageView(),
+        UIImageView(),
+        UIImageView(),
+        UIImageView(),
+        UIImageView(),
+        UIImageView(),
+    ]
     
     //MARK: - Configure Method
+    func configureData(_ topicname: String, topic: [TopicsPhotos]) {
+        topicLabel.text = topicname
+        for i in topic.indices {
+            let url = URL(string: topic[i].urls.regular)
+            imageViews[i].kf.setImage(with: url)
+        }
+    }
+    
     override func configureHierarchy() {
         addArrangedSubview(topicLabel)
         addArrangedSubview(imageScrollView)
         imageScrollView.addSubview(imageWrapView)
-        imageWrapView.addArrangedSubview(imageView)
-        imageWrapView.addArrangedSubview(imageView2)
-        imageWrapView.addArrangedSubview(imageView3)
+        
+        for item in imageViews {
+            imageWrapView.addArrangedSubview(item)
+        }
     }
     
     override func configureLayout() {
@@ -50,16 +69,10 @@ class TopicBannerView: BaseStackView {
         imageWrapView.spacing = 8
         imageWrapView.layoutMargins = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
         
-        imageView.snp.makeConstraints { make in
-            make.width.equalTo(180)
-        }
-        
-        
-        imageView2.snp.makeConstraints { make in
-            make.width.equalTo(180)
-        }
-        imageView3.snp.makeConstraints { make in
-            make.width.equalTo(180)
+        for item in imageViews {
+            item.snp.makeConstraints { make in
+                make.width.equalTo(180)
+            }
         }
     }
     
@@ -70,9 +83,11 @@ class TopicBannerView: BaseStackView {
         topicLabel.backgroundColor = .yellow
         imageScrollView.backgroundColor = .green
         imageWrapView.backgroundColor = .blue
-        imageView.backgroundColor = .purple
-        imageView2.backgroundColor = .purple
-        imageView3.backgroundColor = .purple
+        
+        for item in imageViews {
+            item.backgroundColor = .purple
+        }
+        
         topicLabel.text = "test"
     }
     
