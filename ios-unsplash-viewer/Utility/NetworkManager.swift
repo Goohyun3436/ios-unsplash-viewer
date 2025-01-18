@@ -32,7 +32,6 @@ class NetworkManager {
                     
             }
         }
-        
     }
     
     func unsplashSearchPhotos() {}

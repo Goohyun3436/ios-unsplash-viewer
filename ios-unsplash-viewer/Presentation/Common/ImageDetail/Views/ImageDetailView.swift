@@ -20,7 +20,7 @@ class ImageDetailView: BaseView {
     
     //MARK: - Configure Method
     func configureData(photo: TopicsPhoto, statistics: PhotosStatistics) {
-        userView.configureData(photo.user, photo.created_at)
+        userView.configureData(photo.user, photo.created_at_format)
         
         let url = URL(string: photo.urls.regular)
         imageView.kf.setImage(with: url)

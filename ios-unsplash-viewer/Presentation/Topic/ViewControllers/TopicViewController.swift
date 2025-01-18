@@ -36,8 +36,8 @@ class TopicViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //        for i in [0] {
-        for i in topics.indices {
+        for i in [0] {
+//        for i in topics.indices {
             NetworkManager.shared.unsplashTopicsPhotos(topics[i], 1, 10) { data in
                 self.mainView.topicBannerViews[i].configureData(self.topics[i].ko, photo: data)
                 self.topicsPhotos.append(data)

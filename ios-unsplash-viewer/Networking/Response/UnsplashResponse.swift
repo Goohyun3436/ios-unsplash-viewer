@@ -16,6 +16,22 @@ struct TopicsPhoto: Decodable {
     let height: Int
     let user: User
     var created_at: String
+    
+    var created_at_format: String {
+        let inFormatter = DateFormatter()
+        inFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
+        inFormatter.locale = Locale(identifier: "en_US_POSIX")
+        
+        guard let date = inFormatter.date(from: created_at) else {
+            return created_at
+        }
+        
+        let outFormatter = DateFormatter()
+        outFormatter.dateFormat = "yyyy년 M월 d일 게시됨"
+        outFormatter.locale = Locale(identifier: "ko_KR")
+        
+        return outFormatter.string(from: date)
+    }
 }
 
 struct Url: Decodable {
