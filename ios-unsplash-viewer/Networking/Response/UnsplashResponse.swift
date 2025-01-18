@@ -7,6 +7,7 @@
 
 import Foundation
 
+//MARK: - TopicsPhotos
 struct TopicsPhotos: Decodable {
     let id: String
     let urls: Url
@@ -16,3 +17,14 @@ struct TopicsPhotos: Decodable {
 struct Url: Decodable {
     let regular: String
 }
+
+//MARK: - PhotosStatistics
+struct PhotosStatistics: Decodable {
+    let downloads: traffic
+    let views: traffic
+}
+
+struct traffic: Decodable {
+    let total: Int
+}
+

@@ -17,9 +17,10 @@ class TopicViewController: UIViewController {
         didSet {
             // https://gist.github.com/salvar-labs/f574927b77d466e332261ac1647e19a4
             let vc = TopicDetailViewController()
-            vc.modalPresentationStyle = .fullScreen
-            vc.modalTransitionStyle = .crossDissolve
-            UIApplication.shared.keyWindow?.rootViewController?.present(vc, animated: true)
+            let nav = UINavigationController(rootViewController: vc)
+            nav.modalPresentationStyle = .fullScreen
+            nav.modalTransitionStyle = .crossDissolve
+            UIApplication.shared.keyWindow?.rootViewController?.present(nav, animated: true)
         }
     }
     private lazy var topics = [[TopicsPhotos]]()

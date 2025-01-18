@@ -37,6 +37,24 @@ class NetworkManager {
     
     func unsplashSearchPhotos() {}
     
-    func unsplashPhotosStatistics() {}
+    func unsplashPhotosStatistics(_ imageId: String, completionHandler: @escaping (PhotosStatistics) -> Void) {
+        let url = APIUrl.unsplash + APIPathParamUnsplash.photosStatistics.pathParam(imageId: imageId)
+        
+        let header: HTTPHeaders = [
+            "Authorization": APIKey.unsplashAccess
+        ]
+        
+        AF.request(url, method: .get, headers: header).responseDecodable(of: PhotosStatistics.self) { response in
+            
+            switch response.result {
+            case .success(let data):
+                completionHandler(data)
+                    
+            case .failure(let err):
+                print(err)
+                    
+            }
+        }
+    }
     
 }
