@@ -34,17 +34,18 @@ class TopicViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        NetworkManager.shared.unsplashTopicsPhotos("golden-hour", 1, 10) { data in
-            self.mainView.topicBannerViews[0].configureData("골든 아워", topic: data)
+        NetworkManager.shared.unsplashTopicsPhotos("golden-hour", 1, 1) { data in
+//            self.mainView.topicBannerViews[0].configureData("골든 아워", topic: data)
+            dump(data)
         }
-        
-        NetworkManager.shared.unsplashTopicsPhotos("business-work", 1, 10) { data in
-            self.mainView.topicBannerViews[1].configureData("비지니스 및 업무", topic: data)
-        }
-        
-        NetworkManager.shared.unsplashTopicsPhotos("architecture-interior", 1, 10) { data in
-            self.mainView.topicBannerViews[2].configureData("건축 및 인테리어", topic: data)
-        }
+//        
+//        NetworkManager.shared.unsplashTopicsPhotos("business-work", 1, 10) { data in
+//            self.mainView.topicBannerViews[1].configureData("비지니스 및 업무", topic: data)
+//        }
+//        
+//        NetworkManager.shared.unsplashTopicsPhotos("architecture-interior", 1, 10) { data in
+//            self.mainView.topicBannerViews[2].configureData("건축 및 인테리어", topic: data)
+//        }
     }
     
 }

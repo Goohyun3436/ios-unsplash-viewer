@@ -17,8 +17,6 @@ class ImageDetailView: BaseView {
     private let imageView = UIImageView()
     private let infoView = InfoView()
     
-    
-    
     //MARK: - Configure Method
     override func configureHierarchy() {
         addSubview(scrollView)
@@ -26,7 +24,6 @@ class ImageDetailView: BaseView {
         contentView.addArrangedSubview(userView)
         contentView.addArrangedSubview(imageView)
         contentView.addArrangedSubview(infoView)
-        
     }
     
     override func configureLayout() {

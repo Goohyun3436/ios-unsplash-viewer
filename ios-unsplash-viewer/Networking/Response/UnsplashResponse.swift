@@ -12,10 +12,23 @@ struct TopicsPhotos: Decodable {
     let id: String
     let urls: Url
     let likes: Int
+    let width: Int
+    let height: Int
+    let user: User
+    let created_at: String
 }
 
 struct Url: Decodable {
     let regular: String
+}
+
+struct User: Decodable {
+    let name: String
+    let profile_image: ProfileImage
+}
+
+struct ProfileImage: Decodable {
+    let small: String
 }
 
 //MARK: - PhotosStatistics
