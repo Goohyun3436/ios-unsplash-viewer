@@ -16,7 +16,7 @@ class TopicViewController: UIViewController {
     static var selectedImageId: String? {
         didSet {
             // https://gist.github.com/salvar-labs/f574927b77d466e332261ac1647e19a4
-            let vc = TopicDetailViewController()
+            let vc = ImageDetailViewController()
             let nav = UINavigationController(rootViewController: vc)
             nav.modalPresentationStyle = .fullScreen
             nav.modalTransitionStyle = .crossDissolve

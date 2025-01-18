@@ -1,5 +1,5 @@
 //
-//  TopicDetailViewController.swift
+//  ImageDetailViewController.swift
 //  ios-unsplash-viewer
 //
 //  Created by Goo on 1/18/25.
@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class TopicDetailViewController: UIViewController {
+class ImageDetailViewController: UIViewController {
     
     //MARK: - UI Property
     private let scrollView = UIScrollView()
