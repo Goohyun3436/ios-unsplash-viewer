@@ -13,11 +13,10 @@ class TopicView: BaseView {
     //MARK: - UI Property
     private let scrollView = UIScrollView()
     private let contentView = UIStackView()
-    
     let topicBannerViews = [
         TopicBannerView(),
         TopicBannerView(),
-        TopicBannerView(),
+        TopicBannerView()
     ]
    
     //MARK: - Configure Method
@@ -38,7 +37,7 @@ class TopicView: BaseView {
         
         contentView.snp.makeConstraints { make in
             make.width.equalTo(scrollView)
-            make.verticalEdges.equalTo(scrollView)
+            make.verticalEdges.equalTo(scrollView).inset(16)
         }
         contentView.axis = .vertical
         contentView.spacing = 16

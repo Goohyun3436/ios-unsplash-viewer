@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import Kingfisher
 import SnapKit
 
 class TopicBannerView: BaseStackView {
@@ -16,24 +15,24 @@ class TopicBannerView: BaseStackView {
     private let imageScrollView = UIScrollView()
     private let imageWrapView = UIStackView()
     let imageViews = [
-        UIImageView(),
-        UIImageView(),
-        UIImageView(),
-        UIImageView(),
-        UIImageView(),
-        UIImageView(),
-        UIImageView(),
-        UIImageView(),
-        UIImageView(),
-        UIImageView(),
+        BannerImageView(),
+        BannerImageView(),
+        BannerImageView(),
+        BannerImageView(),
+        BannerImageView(),
+        BannerImageView(),
+        BannerImageView(),
+        BannerImageView(),
+        BannerImageView(),
+        BannerImageView()
     ]
     
     //MARK: - Configure Method
-    func configureData(_ topicname: String, topic: [TopicsPhotos]) {
-        topicLabel.text = topicname
+    func configureData(_ topicId: String, topic: [TopicsPhotos]) {
+        topicLabel.text = topicId
+        
         for i in topic.indices {
-            let url = URL(string: topic[i].urls.regular)
-            imageViews[i].kf.setImage(with: url)
+            imageViews[i].configureData(topic[i])
         }
     }
     
@@ -68,6 +67,7 @@ class TopicBannerView: BaseStackView {
         imageWrapView.axis = .horizontal
         imageWrapView.spacing = 8
         imageWrapView.layoutMargins = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
+        imageWrapView.isLayoutMarginsRelativeArrangement = true
         
         for item in imageViews {
             item.snp.makeConstraints { make in
@@ -78,7 +78,6 @@ class TopicBannerView: BaseStackView {
     
     override func configureView() {
         topicLabel.font = UIFont.systemFont(ofSize: 16, weight: .bold)
-        imageWrapView.isLayoutMarginsRelativeArrangement = true
         
         topicLabel.backgroundColor = .yellow
         imageScrollView.backgroundColor = .green
@@ -87,8 +86,6 @@ class TopicBannerView: BaseStackView {
         for item in imageViews {
             item.backgroundColor = .purple
         }
-        
-        topicLabel.text = "test"
     }
     
 }
