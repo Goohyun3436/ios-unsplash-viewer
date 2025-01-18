@@ -14,10 +14,7 @@ class ImageDetailView: BaseView {
     private let scrollView = UIScrollView()
     private let contentView = UIStackView()
     
-    private let profileWrapView = UIView()
-    private let profileImageView = UIImageView()
-    private let usernameLabel = UILabel()
-    private let dateLabel = UILabel()
+    private let userView = UserView()
     
     private let imageView = UIImageView()
     
@@ -34,14 +31,12 @@ class ImageDetailView: BaseView {
     private let downloadsTitleLabel = UILabel()
     private let downloadsLabel = UILabel()
     
+    //MARK: - Configure Method
     override func configureHierarchy() {
         addSubview(scrollView)
         scrollView.addSubview(contentView)
         
-        contentView.addArrangedSubview(profileWrapView)
-        profileWrapView.addSubview(profileImageView)
-        profileWrapView.addSubview(usernameLabel)
-        profileWrapView.addSubview(dateLabel)
+        contentView.addArrangedSubview(userView)
         
         contentView.addArrangedSubview(imageView)
         
@@ -72,25 +67,11 @@ class ImageDetailView: BaseView {
         contentView.axis = .vertical
         contentView.spacing = 16
         
-        profileWrapView.snp.makeConstraints { make in
+        userView.snp.makeConstraints { make in
             make.horizontalEdges.equalTo(contentView)
         }
         
-        profileImageView.snp.makeConstraints { make in
-            make.leading.equalTo(profileWrapView).inset(16)
-            make.verticalEdges.equalTo(profileWrapView)
-            make.size.equalTo(34)
-        }
         
-        usernameLabel.snp.makeConstraints { make in
-            make.leading.equalTo(profileImageView.snp.trailing).offset(8)
-            make.top.equalTo(profileImageView.snp.top)
-        }
-        
-        dateLabel.snp.makeConstraints { make in
-            make.leading.equalTo(profileImageView.snp.trailing).offset(8)
-            make.bottom.equalTo(profileImageView.snp.bottom)
-        }
         
         
         imageView.snp.makeConstraints { make in
@@ -125,8 +106,7 @@ class ImageDetailView: BaseView {
     }
     
     override func configureView() {
-        usernameLabel.font = UIFont.systemFont(ofSize: 14)
-        dateLabel.font = UIFont.systemFont(ofSize: 13, weight: .semibold)
+       
         titleLabel.font = UIFont.systemFont(ofSize: 16, weight: .bold)
         sizeTitleLabel.font = UIFont.systemFont(ofSize: 14, weight: .semibold)
         sizeLabel.font = UIFont.systemFont(ofSize: 14)
@@ -135,10 +115,8 @@ class ImageDetailView: BaseView {
         downloadsTitleLabel.font = UIFont.systemFont(ofSize: 14, weight: .semibold)
         downloadsLabel.font = UIFont.systemFont(ofSize: 14)
         
-        profileWrapView.backgroundColor = .red
-        profileImageView.backgroundColor = .black
-        usernameLabel.text = "test"
-        dateLabel.text = "test"
+        userView.backgroundColor = .red
+        
         imageView.backgroundColor = .red
         infoWrapView.backgroundColor = .red
         titleLabel.text = "test"
