@@ -12,12 +12,32 @@ import SnapKit
 class BannerImageView: BaseImageView {
     
     //MARK: - UI Property
-    let starWrapView = UIStackView()
-    let starImageView = UIImageView()
-    let startLabel = UILabel()
+    private let starWrapView = UIStackView()
+    private let starImageView = UIImageView()
+    private let startLabel = UILabel()
+    
+    //MARK: - Property
+    private var imageId: String?
+    
+    //MARK: - initialize Method
+    override init() {
+        super.init()
+        
+        let singleTap = UITapGestureRecognizer(target: self, action: #selector(imageTapped))
+        isUserInteractionEnabled = true
+        addGestureRecognizer(singleTap)
+    }
+    
+    @objc
+    func imageTapped() {
+        guard let imageId else { return }
+        
+        TopicViewController.selectedImageId = imageId
+    }
     
     //MARK: - Configure Method
     func configureData(_ topic: TopicsPhotos) {
+        imageId = topic.id
         let url = URL(string: topic.urls.regular)
         kf.setImage(with: url)
         startLabel.text = "\(topic.likes.formatted())"

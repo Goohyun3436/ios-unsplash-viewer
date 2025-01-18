@@ -13,7 +13,17 @@ class TopicViewController: UIViewController {
     private lazy var mainView = TopicView()
     
     //MARK: - Property
+    static var selectedImageId: String? {
+        didSet {
+            // https://gist.github.com/salvar-labs/f574927b77d466e332261ac1647e19a4
+            let vc = TopicDetailViewController()
+            vc.modalPresentationStyle = .fullScreen
+            vc.modalTransitionStyle = .crossDissolve
+            UIApplication.shared.keyWindow?.rootViewController?.present(vc, animated: true)
+        }
+    }
     private lazy var topics = [[TopicsPhotos]]()
+    
     
     //MARK: - Override Method
     override func loadView() {
