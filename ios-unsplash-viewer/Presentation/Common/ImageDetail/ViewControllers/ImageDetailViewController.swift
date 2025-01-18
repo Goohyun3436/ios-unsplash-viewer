@@ -11,7 +11,18 @@ import SnapKit
 class ImageDetailViewController: UIViewController {
     
     //MARK: - UI Property
-    let mainView = ImageDetailView()
+    private let mainView = ImageDetailView()
+    
+    //MARK: - Property
+    var photo: TopicsPhoto? {
+        didSet {
+            if let photo {
+                NetworkManager.shared.unsplashPhotosStatistics(photo.id) { data in
+                    self.mainView.configureData(photo: photo, statistics: data)
+                }
+            }
+        }
+    }
     
     //MARK: - Override Method
     override func loadView() {
@@ -20,11 +31,9 @@ class ImageDetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         view.backgroundColor = .orange
         
-//        NetworkManager.shared.unsplashPhotosStatistics("8i4bU_CIRrc") { data in
-//            dump(data)
-//        }
+        addBackButton()
     }
 }

@@ -11,7 +11,7 @@ class InfoRowView: BaseStackView {
     
     //MARK: - UI Property
     private let titleLabel = UILabel()
-    private let valueLabel = UILabel()
+    let valueLabel = UILabel()
     
     //MARK: - Initialize Method
     init(_ title: String) {

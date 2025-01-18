@@ -17,7 +17,7 @@ class BannerImageView: BaseImageView {
     private let startLabel = UILabel()
     
     //MARK: - Property
-    private var imageId: String?
+    private var photo: TopicsPhoto?
     
     //MARK: - initialize Method
     override init() {
@@ -29,18 +29,18 @@ class BannerImageView: BaseImageView {
     }
     
     @objc
-    func imageTapped() {
-        guard let imageId else { return }
+    private func imageTapped() {
+        guard let photo else { return }
         
-        TopicViewController.selectedImageId = imageId
+        TopicViewController.selectedPhoto = photo
     }
     
     //MARK: - Configure Method
-    func configureData(_ topic: TopicsPhotos) {
-        imageId = topic.id
-        let url = URL(string: topic.urls.regular)
+    func configureData(_ photo: TopicsPhoto) {
+        self.photo = photo
+        let url = URL(string: photo.urls.regular)
         kf.setImage(with: url)
-        startLabel.text = "\(topic.likes.formatted())"
+        startLabel.text = "\(photo.likes.formatted())"
     }
     
     override func configureHierarchy() {

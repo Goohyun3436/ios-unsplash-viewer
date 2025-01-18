@@ -14,14 +14,14 @@ class NetworkManager {
     
     private init() {}
     
-    func unsplashTopicsPhotos(_ topicId: String, _ page: Int, _ perPage: Int, completionHandler: @escaping ([TopicsPhotos]) -> Void) {
-        let url = APIUrl.unsplash + APIPathParamUnsplash.topicsPhotos.pathParam(topicId: topicId, page: page, perPage: perPage)
+    func unsplashTopicsPhotos(_ topic: Topic, _ page: Int, _ perPage: Int, completionHandler: @escaping ([TopicsPhoto]) -> Void) {
+        let url = APIUrl.unsplash + APIPathParamUnsplash.topicsPhotos.pathParam(topicId: topic.rawValue, page: page, perPage: perPage)
         
         let header: HTTPHeaders = [
             "Authorization": APIKey.unsplashAccess
         ]
         
-        AF.request(url, method: .get, headers: header).responseDecodable(of: [TopicsPhotos].self) { response in
+        AF.request(url, method: .get, headers: header).responseDecodable(of: [TopicsPhoto].self) { response in
             
             switch response.result {
             case .success(let data):

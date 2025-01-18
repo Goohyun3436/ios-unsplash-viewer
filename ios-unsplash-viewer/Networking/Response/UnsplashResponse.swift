@@ -1,5 +1,5 @@
 //
-//  TopicsPhotos.swift
+//  UnsplashResponse.swift
 //  ios-unsplash-viewer
 //
 //  Created by Goo on 1/17/25.
@@ -7,15 +7,15 @@
 
 import Foundation
 
-//MARK: - TopicsPhotos
-struct TopicsPhotos: Decodable {
+//MARK: - TopicsPhoto
+struct TopicsPhoto: Decodable {
     let id: String
     let urls: Url
     let likes: Int
     let width: Int
     let height: Int
     let user: User
-    let created_at: String
+    var created_at: String
 }
 
 struct Url: Decodable {

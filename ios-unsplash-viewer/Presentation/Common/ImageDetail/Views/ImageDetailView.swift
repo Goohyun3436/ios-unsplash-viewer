@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Kingfisher
 import SnapKit
 
 class ImageDetailView: BaseView {
@@ -18,6 +19,15 @@ class ImageDetailView: BaseView {
     private let infoView = InfoView()
     
     //MARK: - Configure Method
+    func configureData(photo: TopicsPhoto, statistics: PhotosStatistics) {
+        userView.configureData(photo.user, photo.created_at)
+        
+        let url = URL(string: photo.urls.regular)
+        imageView.kf.setImage(with: url)
+        
+        infoView.configureData(photo.width, photo.height, statistics)
+    }
+    
     override func configureHierarchy() {
         addSubview(scrollView)
         scrollView.addSubview(contentView)

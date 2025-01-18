@@ -20,6 +20,12 @@ class InfoView: BaseView {
     ]
     
     //MARK: - Configure Method
+    func configureData(_ width: Int, _ height: Int, _ statistics: PhotosStatistics) {
+        infoRowViews[0].valueLabel.text = "\(width) x \(height)"
+        infoRowViews[1].valueLabel.text = "\(statistics.views.total.formatted())"
+        infoRowViews[2].valueLabel.text = "\(statistics.downloads.total.formatted())"
+    }
+    
     override func configureHierarchy() {
         addSubview(titleLabel)
         addSubview(textWrapView)
@@ -48,7 +54,7 @@ class InfoView: BaseView {
     override func configureView() {
         titleLabel.font = UIFont.systemFont(ofSize: 16, weight: .bold)
         
-        titleLabel.text = "test"
+        titleLabel.text = "정보"
         titleLabel.backgroundColor = .yellow
         textWrapView.backgroundColor = .green
     }

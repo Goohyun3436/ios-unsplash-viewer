@@ -13,17 +13,19 @@ class TopicViewController: UIViewController {
     private lazy var mainView = TopicView()
     
     //MARK: - Property
-    static var selectedImageId: String? {
+    static var selectedPhoto: TopicsPhoto? {
         didSet {
             // https://gist.github.com/salvar-labs/f574927b77d466e332261ac1647e19a4
             let vc = ImageDetailViewController()
+            vc.photo = selectedPhoto
             let nav = UINavigationController(rootViewController: vc)
             nav.modalPresentationStyle = .fullScreen
             nav.modalTransitionStyle = .crossDissolve
             UIApplication.shared.keyWindow?.rootViewController?.present(nav, animated: true)
         }
     }
-    private lazy var topics = [[TopicsPhotos]]()
+    private let topics = [Topic.goldenHour, Topic.businessWork, Topic.architectureInterior]
+    private var topicsPhotos = [[TopicsPhoto]]()
     
     
     //MARK: - Override Method
@@ -34,18 +36,13 @@ class TopicViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        NetworkManager.shared.unsplashTopicsPhotos("golden-hour", 1, 1) { data in
-//            self.mainView.topicBannerViews[0].configureData("골든 아워", topic: data)
-            dump(data)
+        //        for i in [0] {
+        for i in topics.indices {
+            NetworkManager.shared.unsplashTopicsPhotos(topics[i], 1, 10) { data in
+                self.mainView.topicBannerViews[i].configureData(self.topics[i].ko, photo: data)
+                self.topicsPhotos.append(data)
+            }
         }
-//        
-//        NetworkManager.shared.unsplashTopicsPhotos("business-work", 1, 10) { data in
-//            self.mainView.topicBannerViews[1].configureData("비지니스 및 업무", topic: data)
-//        }
-//        
-//        NetworkManager.shared.unsplashTopicsPhotos("architecture-interior", 1, 10) { data in
-//            self.mainView.topicBannerViews[2].configureData("건축 및 인테리어", topic: data)
-//        }
     }
     
 }

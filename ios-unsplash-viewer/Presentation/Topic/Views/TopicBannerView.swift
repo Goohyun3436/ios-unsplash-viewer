@@ -14,7 +14,7 @@ class TopicBannerView: BaseStackView {
     let topicLabel = UILabel()
     private let imageScrollView = UIScrollView()
     private let imageWrapView = UIStackView()
-    let imageViews = [
+    private let imageViews = [
         BannerImageView(),
         BannerImageView(),
         BannerImageView(),
@@ -28,11 +28,11 @@ class TopicBannerView: BaseStackView {
     ]
     
     //MARK: - Configure Method
-    func configureData(_ topicId: String, topic: [TopicsPhotos]) {
+    func configureData(_ topicId: String, photo: [TopicsPhoto]) {
         topicLabel.text = topicId
         
-        for i in topic.indices {
-            imageViews[i].configureData(topic[i])
+        for i in photo.indices {
+            imageViews[i].configureData(photo[i])
         }
     }
     

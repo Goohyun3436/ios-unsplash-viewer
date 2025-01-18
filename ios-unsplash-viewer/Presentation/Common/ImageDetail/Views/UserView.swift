@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Kingfisher
 import SnapKit
 
 class UserView: BaseView {
@@ -16,6 +17,13 @@ class UserView: BaseView {
     private let dateLabel = UILabel()
     
     //MARK: - Configure Method
+    func configureData(_ user: User, _ createdAt: String) {
+        let url = URL(string: user.profile_image.small)
+        profileImageView.kf.setImage(with: url)
+        nameLabel.text = user.name
+        dateLabel.text = createdAt
+    }
+    
     override func configureHierarchy() {
         addSubview(profileImageView)
         addSubview(nameLabel)
