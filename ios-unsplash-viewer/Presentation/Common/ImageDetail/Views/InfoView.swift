@@ -13,32 +13,20 @@ class InfoView: BaseView {
     //MARK: - UI Property
     private let titleLabel = UILabel()
     private let textWrapView = UIStackView()
-    
-    private let sizeWrapView = UIStackView()
-    private let sizeTitleLabel = UILabel()
-    private let sizeLabel = UILabel()
-    
-    private let viewsWrapView = UIStackView()
-    private let viewsTitleLabel = UILabel()
-    private let viewsLabel = UILabel()
-    
-    private let downloadsWrapView = UIStackView()
-    private let downloadsTitleLabel = UILabel()
-    private let downloadsLabel = UILabel()
+    private let infoRowViews = [
+        InfoRowView("크기"),
+        InfoRowView("조회수"),
+        InfoRowView("다운로드")
+    ]
     
     //MARK: - Configure Method
     override func configureHierarchy() {
         addSubview(titleLabel)
         addSubview(textWrapView)
-        textWrapView.addArrangedSubview(sizeWrapView)
-        sizeWrapView.addArrangedSubview(sizeTitleLabel)
-        sizeWrapView.addArrangedSubview(sizeLabel)
-        textWrapView.addArrangedSubview(viewsWrapView)
-        viewsWrapView.addArrangedSubview(viewsTitleLabel)
-        viewsWrapView.addArrangedSubview(viewsLabel)
-        textWrapView.addArrangedSubview(downloadsWrapView)
-        downloadsWrapView.addArrangedSubview(downloadsTitleLabel)
-        downloadsWrapView.addArrangedSubview(downloadsLabel)
+        
+        for item in infoRowViews {
+            textWrapView.addArrangedSubview(item)
+        }
     }
     
     override func configureLayout() {
@@ -55,33 +43,14 @@ class InfoView: BaseView {
         }
         textWrapView.axis = .vertical
         textWrapView.spacing = 8
-        
-        sizeWrapView.axis = .horizontal
-        sizeWrapView.distribution = .equalSpacing
-        viewsWrapView.axis = .horizontal
-        viewsWrapView.distribution = .equalSpacing
-        downloadsWrapView.axis = .horizontal
-        downloadsWrapView.distribution = .equalSpacing
     }
     
     override func configureView() {
         titleLabel.font = UIFont.systemFont(ofSize: 16, weight: .bold)
-        sizeTitleLabel.font = UIFont.systemFont(ofSize: 14, weight: .semibold)
-        sizeLabel.font = UIFont.systemFont(ofSize: 14)
-        viewsTitleLabel.font = UIFont.systemFont(ofSize: 14, weight: .semibold)
-        viewsLabel.font = UIFont.systemFont(ofSize: 14)
-        downloadsTitleLabel.font = UIFont.systemFont(ofSize: 14, weight: .semibold)
-        downloadsLabel.font = UIFont.systemFont(ofSize: 14)
         
         titleLabel.text = "test"
         titleLabel.backgroundColor = .yellow
         textWrapView.backgroundColor = .green
-        sizeTitleLabel.text = "title"
-        sizeLabel.text = "texttexttexttexttext"
-        viewsTitleLabel.text = "title"
-        viewsLabel.text = "texttexttexttexttext"
-        downloadsTitleLabel.text = "title"
-        downloadsLabel.text = "texttexttexttexttext"
     }
     
 }
