@@ -102,9 +102,6 @@ class SearchViewController: UIViewController {
     private func callRequest(_ query: String?) {
         guard let query else { return }
         
-        print(#function)
-        print(query, page, perPage)
-        
         NetworkManager.shared.unsplashSearchPhotos(query, page, perPage, orderBy, color) { data in
             if self.page == 1 {
                 self.total = data.total
@@ -121,10 +118,6 @@ class SearchViewController: UIViewController {
             } else {
                 self.photos.append(contentsOf: data.results)
             }
-            
-//            print(self.total, self.totalPages, self.photos)
-            
-            print("\(self.photos.count)/\(self.total)")
         }
     }
     
