@@ -29,7 +29,7 @@ class SearchColorFilterView: BaseScrollView {
     func changeButtonColors(selectedTag: Int) {
         for item in colorButton {
             if item.tag == selectedTag {
-                item.backgroundColor = UIColor.systemGray5
+                item.backgroundColor = UIColor.systemGray4
             } else {
                 item.backgroundColor = UIColor.systemGray6
             }

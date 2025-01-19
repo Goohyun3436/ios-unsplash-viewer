@@ -135,6 +135,8 @@ class SearchViewController: UIViewController {
     
     @objc
     private func colorButtonTapped(_ sender: UIButton) {
+        view.endEditing(true)
+        
         guard query != nil else { return }
         
         let newColor = colors[sender.tag]
@@ -151,6 +153,8 @@ class SearchViewController: UIViewController {
     
     @objc
     private func sortButtonTapped() {
+        view.endEditing(true)
+        
         guard query != nil else { return }
         
         orderBy = orderBy.toggle()
