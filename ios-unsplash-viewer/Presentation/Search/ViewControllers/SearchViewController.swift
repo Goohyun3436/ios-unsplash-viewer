@@ -28,10 +28,11 @@ enum SearchStatus {
 class SearchViewController: UIViewController {
 
     //MARK: - UI Property
-    let searchBar = PhotoSearchBar()
-    lazy var collectionView = SearchCollectionView()
-    let sortButton = SearchSortButton()
-    let statusLabel = UILabel()
+    private let searchBar = PhotoSearchBar()
+    private lazy var collectionView = SearchCollectionView()
+    private let colorFilterView = SearchColorFilterView()
+    private let sortButton = SearchSortButton()
+    private let statusLabel = UILabel()
     
     //MARK: - Property
     var query: String? {
@@ -40,10 +41,14 @@ class SearchViewController: UIViewController {
                 return
             }
             
+            total = 0
+            totalPages = 0
+            color = nil
+            isEnd = false
             page = 1
         }
     }
-    var page: Int = 0 {
+    private var page: Int = 0 {
         didSet {
             callRequest(query)
             
@@ -52,21 +57,28 @@ class SearchViewController: UIViewController {
             }
         }
     }
-    let perPage: Int = 20
-    var orderBy = OrderBy.relevant {
+    private let perPage: Int = 20
+    private var orderBy = OrderBy.relevant {
         didSet {
             removePhotos()
             page = 1
         }
     }
-    var total: Int = 0
-    var totalPages: Int = 0
-    var photos = [Photo]() {
+    private let colors = ColorFilter.allCases
+    private var color: ColorFilter? {
+        didSet {
+            removePhotos()
+            page = 1
+        }
+    }
+    private var total: Int = 0
+    private var totalPages: Int = 0
+    private var photos = [Photo]() {
         didSet {
             collectionView.reloadData()
         }
     }
-    var isEnd: Bool = false
+    private var isEnd: Bool = false
     
     //MARK: - Override Method
     override func viewDidLoad() {
@@ -77,6 +89,7 @@ class SearchViewController: UIViewController {
         setStatusLabel(SearchStatus.normal)
         
         configureSearchBar()
+        configureColorButton()
         configureSortButton()
         configureCollectionView()
         
@@ -86,13 +99,13 @@ class SearchViewController: UIViewController {
     }
     
     //MARK: - Method
-    func callRequest(_ query: String?) {
+    private func callRequest(_ query: String?) {
         guard let query else { return }
         
         print(#function)
         print(query, page, perPage)
         
-        NetworkManager.shared.unsplashSearchPhotos(query, page, perPage, orderBy) { data in
+        NetworkManager.shared.unsplashSearchPhotos(query, page, perPage, orderBy, color) { data in
             if self.page == 1 {
                 self.total = data.total
                 self.totalPages = data.total_pages
@@ -125,7 +138,17 @@ class SearchViewController: UIViewController {
         statusLabel.text = status.message
     }
     
-    @objc private func sortButtonTapped() {
+    @objc
+    private func colorButtonTapped(_ sender: UIButton) {
+        guard query != nil else { return }
+        
+        color = colors[sender.tag]
+    }
+    
+    @objc
+    private func sortButtonTapped() {
+        guard query != nil else { return }
+        
         orderBy = orderBy.toggle()
         sortButton.configureData(orderBy)
     }
@@ -140,6 +163,7 @@ class SearchViewController: UIViewController {
     //MARK: - Configure Method
     private func configureHierarchy() {
         view.addSubview(searchBar)
+        view.addSubview(colorFilterView)
         view.addSubview(sortButton)
         view.addSubview(collectionView)
         view.addSubview(statusLabel)
@@ -152,20 +176,26 @@ class SearchViewController: UIViewController {
             make.height.equalTo(44)
         }
         
+        colorFilterView.snp.makeConstraints { make in
+            make.horizontalEdges.equalToSuperview()
+            make.top.equalTo(searchBar.snp.bottom)
+            make.height.equalTo(46)
+        }
+        
         statusLabel.snp.makeConstraints { make in
             make.center.equalTo(view.safeAreaLayoutGuide)
         }
         
         sortButton.snp.makeConstraints { make in
             make.trailing.equalToSuperview().offset(16)
-            make.top.equalTo(searchBar.snp.bottom).offset(16)
+            make.top.equalTo(searchBar.snp.bottom).offset(6)
             make.width.equalTo(104)
-            make.height.equalTo(32)
+            make.height.equalTo(34)
         }
         
         collectionView.snp.makeConstraints { make in
             make.horizontalEdges.equalToSuperview()
-            make.top.equalTo(searchBar.snp.bottom).offset(100)
+            make.top.equalTo(colorFilterView.snp.bottom)
             make.bottom.equalTo(view.safeAreaLayoutGuide)
         }
     }
@@ -177,6 +207,12 @@ class SearchViewController: UIViewController {
     
     private func configureSearchBar() {
         searchBar.delegate = self
+    }
+    
+    private func configureColorButton() {
+        for item in colorFilterView.colorButton {
+            item.addTarget(self, action: #selector(colorButtonTapped), for: .touchUpInside)
+        }
     }
     
     private func configureSortButton() {

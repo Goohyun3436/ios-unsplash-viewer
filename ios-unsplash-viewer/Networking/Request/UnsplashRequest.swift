@@ -5,7 +5,7 @@
 //  Created by Goo on 1/18/25.
 //
 
-import Foundation
+import UIKit
 
 enum Topic: String {
     case goldenHour = "golden-hour"
@@ -42,6 +42,48 @@ enum OrderBy: String {
             return OrderBy.latest
         case .latest:
             return OrderBy.relevant
+        }
+    }
+}
+
+enum ColorFilter: String, CaseIterable {
+    case black , white , yellow , red , purple , green , blue
+    
+    var ko: String {
+        switch self {
+        case .black:
+            return "블랙"
+        case .white:
+            return "화이트"
+        case .yellow:
+            return "옐로우"
+        case .red:
+            return "레드"
+        case .purple:
+            return "퍼플"
+        case .green:
+            return "그린"
+        case .blue:
+            return "블루"
+        }
+    }
+    
+    var color: UIColor {
+        switch self {
+        case .black:
+            return UIColor.black
+        case .white:
+            return UIColor.white
+        case .yellow:
+            return UIColor.systemYellow
+        case .red:
+            return UIColor.systemRed
+        case .purple:
+            return UIColor.systemPurple
+        case .green:
+            return UIColor.systemGreen
+        case .blue:
+            return UIColor.systemBlue
         }
     }
 }
