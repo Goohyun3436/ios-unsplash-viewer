@@ -23,10 +23,9 @@ class SearchViewController: UIViewController {
             }
             
             page = 1
-            callRequest(query)
         }
     }
-    var page: Int = 1 {
+    var page: Int = 0 {
         didSet {
             callRequest(query)
             
