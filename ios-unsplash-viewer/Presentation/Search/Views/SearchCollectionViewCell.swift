@@ -7,25 +7,31 @@
 
 import UIKit
 
-class BaseCollectionViewCell: UICollectionViewCell {
+class SearchCollectionViewCell: BaseCollectionViewCell {
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        
-        configureHierarchy()
-        configureLayout()
-        configureView()
+    //MARK: - UI Property
+    private let mainView = ImageCardView()
+    
+    //MARK: - Property
+    static let identifier = "SearchCollectionViewCell"
+    
+    //MARK: - Configure Method
+    func configureData(_ photo: Photo) {
+        mainView.configureData(photo)
     }
     
-    func configureHierarchy() {}
+    override func configureHierarchy() {
+        contentView.addSubview(mainView)
+    }
     
-    func configureLayout() {}
+    override func configureLayout() {
+        mainView.snp.makeConstraints { make in
+            make.edges.equalTo(contentView)
+        }
+    }
     
-    func configureView() {}
-    
-    @available(*, unavailable)
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+    override func configureView() {
+        backgroundColor = .orange
     }
     
 }

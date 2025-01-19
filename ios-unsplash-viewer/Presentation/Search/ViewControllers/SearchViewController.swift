@@ -13,6 +13,7 @@ class SearchViewController: UIViewController {
     //MARK: - UI Property
     let searchBar = PhotoSearchBar()
     lazy var collectionView = SearchCollectionView()
+    let sortButton = UIButton()
     
     //MARK: - Property
     var query: String? {
@@ -35,6 +36,11 @@ class SearchViewController: UIViewController {
         }
     }
     let perPage: Int = 20
+    var orderBy = OrderBy.relevant {
+        didSet {
+            print(orderBy)
+        }
+    }
     var total: Int = 0
     var totalPages: Int = 0
     var photos = [Photo]() {
@@ -51,7 +57,7 @@ class SearchViewController: UIViewController {
         print(#function)
         print(query, page, perPage)
         
-        NetworkManager.shared.unsplashSearchPhotos(query, page, perPage, orderBy: OrderBy.relevant) { data in
+        NetworkManager.shared.unsplashSearchPhotos(query, page, perPage, orderBy) { data in
             if self.page == 1 {
                 self.total = data.total
                 self.totalPages = data.total_pages
@@ -85,18 +91,59 @@ class SearchViewController: UIViewController {
         
         configureSearchBar()
         configureCollectionView()
+        
+        configureHierarchy()
+        configureLayout()
+        configureView()
     }
     
-    func configureSearchBar() {
-        searchBar.delegate = self
-        
+    func configureHierarchy() {
         view.addSubview(searchBar)
-        
+        view.addSubview(sortButton)
+        view.addSubview(collectionView)
+    }
+    
+    func configureLayout() {
         searchBar.snp.makeConstraints { make in
             make.horizontalEdges.equalToSuperview().inset(16)
             make.top.equalTo(view.safeAreaLayoutGuide)
             make.height.equalTo(44)
         }
+        
+        sortButton.snp.makeConstraints { make in
+            make.trailing.equalToSuperview().offset(16)
+            make.top.equalTo(searchBar.snp.bottom).offset(16)
+            make.width.equalTo(104)
+            make.height.equalTo(32)
+        }
+        
+        collectionView.snp.makeConstraints { make in
+            make.horizontalEdges.equalToSuperview()
+            make.top.equalTo(searchBar.snp.bottom).offset(100)
+            make.bottom.equalTo(view.safeAreaLayoutGuide)
+        }
+    }
+    
+    func configureView() {
+        sortButton.layer.shadowColor = UIColor.gray.cgColor
+        sortButton.layer.shadowOpacity = 0.5
+        sortButton.layer.shadowOffset = CGSize.zero
+        sortButton.layer.shadowRadius = 3
+        sortButton.layer.cornerRadius = 16
+        sortButton.layer.borderWidth = 1
+        sortButton.layer.borderColor = UIColor.separator.cgColor
+        sortButton.backgroundColor = UIColor.systemBackground
+        sortButton.contentEdgeInsets = UIEdgeInsets(top: 0, left: 12, bottom: 0, right: 0)
+        sortButton.contentHorizontalAlignment = .leading
+        sortButton.setImage(UIImage(systemName: "arrow.up.and.down.text.horizontal"), for: .normal)
+        sortButton.setTitle(" \(orderBy.ko)", for: .normal)
+        sortButton.titleLabel?.font = UIFont.systemFont(ofSize: 14, weight: .bold)
+        sortButton.setTitleColor(UIColor.label, for: .normal)
+        sortButton.tintColor = UIColor.label
+    }
+    
+    func configureSearchBar() {
+        searchBar.delegate = self
     }
     
     func configureCollectionView() {
@@ -105,14 +152,6 @@ class SearchViewController: UIViewController {
         collectionView.prefetchDataSource = self
         
         collectionView.register(SearchCollectionViewCell.self, forCellWithReuseIdentifier: SearchCollectionViewCell.identifier)
-        
-        view.addSubview(collectionView)
-        
-        collectionView.snp.makeConstraints { make in
-            make.horizontalEdges.equalToSuperview()
-            make.top.equalTo(searchBar.snp.bottom).offset(16)
-            make.bottom.equalTo(view.safeAreaLayoutGuide)
-        }
     }
     
 }

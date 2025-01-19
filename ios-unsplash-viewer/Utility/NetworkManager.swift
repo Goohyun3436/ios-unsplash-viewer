@@ -34,7 +34,7 @@ class NetworkManager {
         }
     }
     
-    func unsplashSearchPhotos(_ query: String, _ page: Int, _ perPage: Int, orderBy: OrderBy, completionHandler: @escaping (SearchPhotos) -> Void) {
+    func unsplashSearchPhotos(_ query: String, _ page: Int, _ perPage: Int, _ orderBy: OrderBy, completionHandler: @escaping (SearchPhotos) -> Void) {
         let url = APIUrl.unsplash + APIPathParamUnsplash.searchPhotos.pathParam(query: query, page: page, perPage: perPage, orderBy: orderBy)
         
         let header: HTTPHeaders = [

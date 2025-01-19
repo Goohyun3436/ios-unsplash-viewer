@@ -8,31 +8,25 @@
 import UIKit
 import SnapKit
 
-class SearchCollectionViewCell: BaseCollectionViewCell {
+class BaseCollectionViewCell: UICollectionViewCell {
     
-    //MARK: - UI Property
-    private let mainView = ImageCardView()
-    
-    //MARK: - Property
-    static let identifier = "SearchCollectionViewCell"
-    
-    //MARK: - Configure Method
-    func configureData(_ photo: Photo) {
-        mainView.configureData(photo)
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        
+        configureHierarchy()
+        configureLayout()
+        configureView()
     }
     
-    override func configureHierarchy() {
-        contentView.addSubview(mainView)
-    }
+    func configureHierarchy() {}
     
-    override func configureLayout() {
-        mainView.snp.makeConstraints { make in
-            make.edges.equalTo(contentView)
-        }
-    }
+    func configureLayout() {}
     
-    override func configureView() {
-        backgroundColor = .orange
+    func configureView() {}
+    
+    @available(*, unavailable)
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
 }
