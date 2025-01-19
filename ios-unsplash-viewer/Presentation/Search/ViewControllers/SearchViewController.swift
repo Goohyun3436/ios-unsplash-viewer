@@ -13,7 +13,7 @@ class SearchViewController: UIViewController {
     //MARK: - UI Property
     let searchBar = PhotoSearchBar()
     lazy var collectionView = SearchCollectionView()
-    let sortButton = UIButton()
+    let sortButton = SearchSortButton()
     
     //MARK: - Property
     var query: String? {
@@ -90,6 +90,7 @@ class SearchViewController: UIViewController {
         view.backgroundColor = UIColor.systemBackground
         
         configureSearchBar()
+        sortButton.configureData(orderBy)
         configureCollectionView()
         
         configureHierarchy()
@@ -125,21 +126,6 @@ class SearchViewController: UIViewController {
     }
     
     func configureView() {
-        sortButton.layer.shadowColor = UIColor.gray.cgColor
-        sortButton.layer.shadowOpacity = 0.5
-        sortButton.layer.shadowOffset = CGSize.zero
-        sortButton.layer.shadowRadius = 3
-        sortButton.layer.cornerRadius = 16
-        sortButton.layer.borderWidth = 1
-        sortButton.layer.borderColor = UIColor.separator.cgColor
-        sortButton.backgroundColor = UIColor.systemBackground
-        sortButton.contentEdgeInsets = UIEdgeInsets(top: 0, left: 12, bottom: 0, right: 0)
-        sortButton.contentHorizontalAlignment = .leading
-        sortButton.setImage(UIImage(systemName: "arrow.up.and.down.text.horizontal"), for: .normal)
-        sortButton.setTitle(" \(orderBy.ko)", for: .normal)
-        sortButton.titleLabel?.font = UIFont.systemFont(ofSize: 14, weight: .bold)
-        sortButton.setTitleColor(UIColor.label, for: .normal)
-        sortButton.tintColor = UIColor.label
     }
     
     func configureSearchBar() {
