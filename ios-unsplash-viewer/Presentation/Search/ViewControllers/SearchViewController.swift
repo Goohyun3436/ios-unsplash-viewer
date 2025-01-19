@@ -8,12 +8,30 @@
 import UIKit
 import SnapKit
 
+enum SearchStatus {
+    case normal, emptyQuery, shortQuery, emptyData
+    
+    var message: String {
+        switch self {
+        case .normal:
+            return "사진을 검색해보세요."
+        case .emptyQuery:
+            return "검색어를 입력하세요."
+        case .shortQuery:
+            return "검색어를 두 글자 이상 입력하세요."
+        case .emptyData:
+            return "검색 결과가 없습니다."
+        }
+    }
+}
+
 class SearchViewController: UIViewController {
 
     //MARK: - UI Property
     let searchBar = PhotoSearchBar()
     lazy var collectionView = SearchCollectionView()
     let sortButton = SearchSortButton()
+    let statusLabel = UILabel()
     
     //MARK: - Property
     var query: String? {
@@ -56,12 +74,15 @@ class SearchViewController: UIViewController {
         
         view.backgroundColor = UIColor.systemBackground
         
+        setStatusLabel(SearchStatus.normal)
+        
         configureSearchBar()
         configureSortButton()
         configureCollectionView()
         
         configureHierarchy()
         configureLayout()
+        configureView()
     }
     
     //MARK: - Method
@@ -76,6 +97,13 @@ class SearchViewController: UIViewController {
                 self.total = data.total
                 self.totalPages = data.total_pages
                 self.photos = data.results
+                
+                guard self.total != 0 else {
+                    self.setStatusLabel(SearchStatus.emptyData)
+                    return
+                }
+                
+                self.setStatusLabel(nil)
                 self.collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: true)
             } else {
                 self.photos.append(contentsOf: data.results)
@@ -85,6 +113,16 @@ class SearchViewController: UIViewController {
             
             print("\(self.photos.count)/\(self.total)")
         }
+    }
+    
+    private func setStatusLabel(_ status: SearchStatus?) {
+        guard let status else {
+            statusLabel.isHidden = true
+            return
+        }
+        
+        statusLabel.isHidden = false
+        statusLabel.text = status.message
     }
     
     @objc private func sortButtonTapped() {
@@ -99,17 +137,23 @@ class SearchViewController: UIViewController {
         isEnd = false
     }
     
-    func configureHierarchy() {
+    //MARK: - Configure Method
+    private func configureHierarchy() {
         view.addSubview(searchBar)
         view.addSubview(sortButton)
         view.addSubview(collectionView)
+        view.addSubview(statusLabel)
     }
     
-    func configureLayout() {
+    private func configureLayout() {
         searchBar.snp.makeConstraints { make in
             make.horizontalEdges.equalToSuperview().inset(16)
             make.top.equalTo(view.safeAreaLayoutGuide)
             make.height.equalTo(44)
+        }
+        
+        statusLabel.snp.makeConstraints { make in
+            make.center.equalTo(view.safeAreaLayoutGuide)
         }
         
         sortButton.snp.makeConstraints { make in
@@ -126,16 +170,21 @@ class SearchViewController: UIViewController {
         }
     }
     
-    func configureSearchBar() {
+    private func configureView() {
+        statusLabel.font = UIFont.systemFont(ofSize: 18, weight: .black)
+        statusLabel.textColor = UIColor.label
+    }
+    
+    private func configureSearchBar() {
         searchBar.delegate = self
     }
     
-    func configureSortButton() {
+    private func configureSortButton() {
         sortButton.configureData(orderBy)
         sortButton.addTarget(self, action: #selector(sortButtonTapped), for: .touchUpInside)
     }
     
-    func configureCollectionView() {
+    private func configureCollectionView() {
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.prefetchDataSource = self
@@ -163,12 +212,12 @@ extension SearchViewController: UISearchBarDelegate {
         query = query.trimmingCharacters(in: .whitespaces)
         
         guard !query.isEmpty else {
-            // 빈쿼리
+            setStatusLabel(SearchStatus.emptyQuery)
             return
         }
         
         guard query.count >= 2 else {
-            // 2글자 이상
+            setStatusLabel(SearchStatus.shortQuery)
             return
         }
         
@@ -178,6 +227,7 @@ extension SearchViewController: UISearchBarDelegate {
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         searchBar.text = ""
         removePhotos()
+        setStatusLabel(SearchStatus.normal)
         
         view.endEditing(true)
         searchBar.setShowsCancelButton(false, animated: true)
