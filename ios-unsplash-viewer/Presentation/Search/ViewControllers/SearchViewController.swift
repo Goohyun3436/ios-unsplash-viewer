@@ -137,7 +137,16 @@ class SearchViewController: UIViewController {
     private func colorButtonTapped(_ sender: UIButton) {
         guard query != nil else { return }
         
-        color = colors[sender.tag]
+        let newColor = colors[sender.tag]
+        
+        guard color != newColor else {
+            color = nil
+            colorFilterView.clearButtonColor(clearTag: sender.tag)
+            return
+        }
+        
+        color = newColor
+        colorFilterView.changeButtonColors(selectedTag: sender.tag)
     }
     
     @objc

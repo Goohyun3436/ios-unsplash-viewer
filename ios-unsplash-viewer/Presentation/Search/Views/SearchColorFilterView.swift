@@ -22,7 +22,23 @@ class SearchColorFilterView: BaseScrollView {
         UIButton()
     ]
     
+    //MARK: - Property
     private let colors = ColorFilter.allCases
+    
+    //MARK: - configure Method
+    func changeButtonColors(selectedTag: Int) {
+        for item in colorButton {
+            if item.tag == selectedTag {
+                item.backgroundColor = UIColor.systemGray5
+            } else {
+                item.backgroundColor = UIColor.systemGray6
+            }
+        }
+    }
+    
+    func clearButtonColor(clearTag: Int) {
+        colorButton[clearTag].backgroundColor = UIColor.systemGray6
+    }
     
     override func configureHierarchy() {
         addSubview(contentView)
