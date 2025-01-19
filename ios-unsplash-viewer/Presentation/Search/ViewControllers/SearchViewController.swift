@@ -12,15 +12,29 @@ class SearchViewController: UIViewController {
 
     //MARK: - UI Property
     let searchBar = UISearchBar()
-    var total: Int = 0
-    var totalPages: Int = 0
-    var photos = [Photo]()
+    lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: {
+        let layout = UICollectionViewFlowLayout()
+        
+        let inset: CGFloat = 0
+        let spacing: CGFloat = 3
+        let cellPerRow: CGFloat = 2
+        let width: CGFloat = (UIScreen.main.bounds.width - inset * 2 - spacing * (cellPerRow - 1)) / cellPerRow
+        let height: CGFloat = width * 1.5
+        
+        layout.scrollDirection = .vertical
+        layout.itemSize = CGSize(width: width, height: height)
+        layout.sectionInset = UIEdgeInsets(top: 0, left: inset, bottom: 0, right: inset)
+        layout.minimumLineSpacing = spacing
+        layout.minimumInteritemSpacing = spacing
+        
+        return layout
+    }())
     
     //MARK: - Property
     var query: String? {
         didSet {
             if let query {
-                NetworkManager.shared.unsplashSearchPhotos(query, 1, 1, orderBy: OrderBy.latest) { data in
+                NetworkManager.shared.unsplashSearchPhotos(query, 1, 20, orderBy: OrderBy.latest) { data in
                     self.total = data.total
                     self.totalPages = data.total_pages
                     self.photos = data.results
@@ -28,6 +42,13 @@ class SearchViewController: UIViewController {
                     print(self.total, self.totalPages, self.photos)
                 }
             }
+        }
+    }
+    var total: Int = 0
+    var totalPages: Int = 0
+    var photos = [Photo]() {
+        didSet {
+            collectionView.reloadData()
         }
     }
     
@@ -38,6 +59,7 @@ class SearchViewController: UIViewController {
         view.backgroundColor = UIColor.yellow
         
         configureSearchBar()
+        configureCollectionView()
         
         query = "robot"
         
@@ -54,8 +76,16 @@ class SearchViewController: UIViewController {
         searchBar.tintColor = UIColor.label
     }
     
+    func configureCollectionView() {
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        
+        collectionView.register(SearchCollectionViewCell.self, forCellWithReuseIdentifier: SearchCollectionViewCell.identifier)
+    }
+    
     func configureH() {
         view.addSubview(searchBar)
+        view.addSubview(collectionView)
     }
     
     func configureL() {
@@ -64,9 +94,17 @@ class SearchViewController: UIViewController {
             make.top.equalTo(view.safeAreaLayoutGuide)
             make.height.equalTo(44)
         }
+        
+        collectionView.snp.makeConstraints { make in
+            make.horizontalEdges.equalToSuperview()
+            make.top.equalTo(searchBar.snp.bottom).offset(16)
+            make.bottom.equalTo(view.safeAreaLayoutGuide)
+        }
     }
     
-    func configureV() {}
+    func configureV() {
+        
+    }
     
 }
 
@@ -101,8 +139,26 @@ extension SearchViewController: UISearchBarDelegate {
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.text = ""
         view.endEditing(true)
         searchBar.setShowsCancelButton(false, animated: true)
+    }
+    
+}
+
+//MARK: - UICollectionView
+extension SearchViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return photos.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SearchCollectionViewCell.identifier, for: indexPath) as! SearchCollectionViewCell
+        
+        cell.configureData(photos[indexPath.item])
+        
+        return cell
     }
     
 }

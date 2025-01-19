@@ -15,16 +15,16 @@ class TopicBannerView: BaseStackView {
     private let imageScrollView = UIScrollView()
     private let imageWrapView = UIStackView()
     private let imageViews = [
-        BannerImageView(),
-        BannerImageView(),
-        BannerImageView(),
-        BannerImageView(),
-        BannerImageView(),
-        BannerImageView(),
-        BannerImageView(),
-        BannerImageView(),
-        BannerImageView(),
-        BannerImageView()
+        ImageCardView(),
+        ImageCardView(),
+        ImageCardView(),
+        ImageCardView(),
+        ImageCardView(),
+        ImageCardView(),
+        ImageCardView(),
+        ImageCardView(),
+        ImageCardView(),
+        ImageCardView()
     ]
     
     //MARK: - Configure Method
