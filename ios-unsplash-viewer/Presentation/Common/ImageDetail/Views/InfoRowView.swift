@@ -33,9 +33,8 @@ class InfoRowView: BaseStackView {
     
     override func configureView() {
         titleLabel.font = UIFont.systemFont(ofSize: 14, weight: .bold)
-        valueLabel.font = UIFont.systemFont(ofSize: 14)
-        
-        valueLabel.text = "texttexttexttexttext"
+        valueLabel.font = UIFont.systemFont(ofSize: 12, weight: .semibold)
+        valueLabel.textColor = UIColor.darkGray
     }
     
 }

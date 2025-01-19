@@ -24,8 +24,16 @@ class ImageDetailView: BaseView {
         
         let url = URL(string: photo.urls.regular)
         imageView.kf.setImage(with: url)
+        resizeImageView(photo.width, photo.height)
         
         infoView.configureData(photo.width, photo.height, statistics)
+    }
+    
+    private func resizeImageView(_ width: Int, _ height: Int) {
+        let ratio: CGFloat = CGFloat(width) / CGFloat(height)
+        imageView.snp.makeConstraints { make in
+            make.height.equalTo(imageView.snp.width).multipliedBy(1 / ratio)
+        }
     }
     
     override func configureHierarchy() {
@@ -63,9 +71,7 @@ class ImageDetailView: BaseView {
     }
     
     override func configureView() {
-        userView.backgroundColor = .red
-        imageView.backgroundColor = .red
-        infoView.backgroundColor = .red
+        backgroundColor = UIColor.systemBackground
     }
     
 }

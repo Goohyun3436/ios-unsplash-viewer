@@ -52,11 +52,8 @@ class InfoView: BaseView {
     }
     
     override func configureView() {
-        titleLabel.font = UIFont.systemFont(ofSize: 16, weight: .bold)
-        
         titleLabel.text = "정보"
-        titleLabel.backgroundColor = .yellow
-        textWrapView.backgroundColor = .green
+        titleLabel.font = UIFont.systemFont(ofSize: 16, weight: .bold)
     }
     
 }

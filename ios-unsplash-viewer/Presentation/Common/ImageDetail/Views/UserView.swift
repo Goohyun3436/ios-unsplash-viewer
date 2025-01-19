@@ -20,6 +20,7 @@ class UserView: BaseView {
     func configureData(_ user: User, _ createdAt: String) {
         let url = URL(string: user.profile_image.small)
         profileImageView.kf.setImage(with: url)
+        profileImageView.configureCircle()
         nameLabel.text = user.name
         dateLabel.text = createdAt
     }
@@ -39,22 +40,20 @@ class UserView: BaseView {
         
         nameLabel.snp.makeConstraints { make in
             make.leading.equalTo(profileImageView.snp.trailing).offset(8)
-            make.top.equalTo(profileImageView.snp.top)
+            make.top.equalTo(profileImageView.snp.top).offset(2)
         }
         
         dateLabel.snp.makeConstraints { make in
             make.leading.equalTo(profileImageView.snp.trailing).offset(8)
-            make.bottom.equalTo(profileImageView.snp.bottom)
+            make.bottom.equalTo(profileImageView.snp.bottom).inset(2)
         }
     }
     
     override func configureView() {
-        nameLabel.font = UIFont.systemFont(ofSize: 14)
-        dateLabel.font = UIFont.systemFont(ofSize: 13, weight: .semibold)
-        
-        profileImageView.backgroundColor = .black
-        nameLabel.text = "nameLabel"
-        dateLabel.text = "dateLabel"
+        profileImageView.clipsToBounds = true
+        profileImageView.backgroundColor = UIColor.lightGray
+        nameLabel.font = UIFont.systemFont(ofSize: 12, weight: .semibold)
+        dateLabel.font = UIFont.systemFont(ofSize: 12, weight: .bold)
     }
     
 }

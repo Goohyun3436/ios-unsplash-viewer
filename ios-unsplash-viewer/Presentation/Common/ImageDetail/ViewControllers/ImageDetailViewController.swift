@@ -31,8 +31,6 @@ class ImageDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .orange
-        
         addBackButton()
     }
 }
