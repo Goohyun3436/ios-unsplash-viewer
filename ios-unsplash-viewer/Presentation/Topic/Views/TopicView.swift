@@ -11,7 +11,7 @@ import SnapKit
 class TopicView: BaseView {
     
     //MARK: - UI Property
-    private let scrollView = UIScrollView()
+    let scrollView = UIScrollView()
     private let contentView = UIStackView()
     let topicBannerViews = [
         TopicBannerView(),
@@ -44,8 +44,8 @@ class TopicView: BaseView {
     }
     
     override func configureView() {
-        backgroundColor = .red
-        contentView.backgroundColor = .orange
+        backgroundColor = UIColor.systemBackground
+        contentView.backgroundColor = UIColor.systemBackground
     }
     
 }

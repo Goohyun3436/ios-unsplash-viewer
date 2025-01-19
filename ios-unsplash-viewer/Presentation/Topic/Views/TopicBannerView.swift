@@ -15,16 +15,16 @@ class TopicBannerView: BaseStackView {
     private let imageScrollView = UIScrollView()
     private let imageWrapView = UIStackView()
     private let imageViews = [
-        ImageCardView(),
-        ImageCardView(),
-        ImageCardView(),
-        ImageCardView(),
-        ImageCardView(),
-        ImageCardView(),
-        ImageCardView(),
-        ImageCardView(),
-        ImageCardView(),
-        ImageCardView()
+        ImageCardView(corner: true),
+        ImageCardView(corner: true),
+        ImageCardView(corner: true),
+        ImageCardView(corner: true),
+        ImageCardView(corner: true),
+        ImageCardView(corner: true),
+        ImageCardView(corner: true),
+        ImageCardView(corner: true),
+        ImageCardView(corner: true),
+        ImageCardView(corner: true)
     ]
     
     //MARK: - Configure Method
@@ -55,10 +55,14 @@ class TopicBannerView: BaseStackView {
             make.height.equalTo(34)
         }
         
+        let imageW: CGFloat = 180
+        let imageH: CGFloat = 250
+        
         imageScrollView.snp.makeConstraints { make in
             make.horizontalEdges.equalToSuperview()
-            make.height.equalTo(260)
+            make.height.equalTo(imageH)
         }
+        imageScrollView.showsHorizontalScrollIndicator = false
         
         imageWrapView.snp.makeConstraints { make in
             make.horizontalEdges.equalTo(imageScrollView)
@@ -71,21 +75,14 @@ class TopicBannerView: BaseStackView {
         
         for item in imageViews {
             item.snp.makeConstraints { make in
-                make.width.equalTo(180)
+                make.width.equalTo(imageW)
             }
         }
     }
     
     override func configureView() {
-        topicLabel.font = UIFont.systemFont(ofSize: 16, weight: .bold)
-        
-        topicLabel.backgroundColor = .yellow
-        imageScrollView.backgroundColor = .green
-        imageWrapView.backgroundColor = .blue
-        
-        for item in imageViews {
-            item.backgroundColor = .purple
-        }
+        topicLabel.font = UIFont.systemFont(ofSize: 16, weight: .black)
+        topicLabel.textColor = UIColor.label
     }
     
 }

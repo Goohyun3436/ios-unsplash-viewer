@@ -10,7 +10,7 @@ import UIKit
 class SearchCollectionViewCell: BaseCollectionViewCell {
     
     //MARK: - UI Property
-    private let mainView = ImageCardView()
+    private let mainView = ImageCardView(corner: true)
     
     //MARK: - Property
     static let identifier = "SearchCollectionViewCell"

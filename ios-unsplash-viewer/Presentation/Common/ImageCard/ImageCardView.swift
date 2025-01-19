@@ -20,8 +20,10 @@ class ImageCardView: BaseImageView {
     private var photo: Photo?
     
     //MARK: - initialize Method
-    override init() {
+    init(corner clipsToBounds: Bool) {
         super.init()
+        
+        self.clipsToBounds = clipsToBounds
         
         let singleTap = UITapGestureRecognizer(target: self, action: #selector(imageTapped))
         isUserInteractionEnabled = true
@@ -65,11 +67,14 @@ class ImageCardView: BaseImageView {
     }
     
     override func configureView() {
+        contentMode = .scaleAspectFill
+        layer.cornerRadius = 12
+        backgroundColor = UIColor.lightGray
         starWrapView.layer.cornerRadius = 12
-        starWrapView.backgroundColor = .black
+        starWrapView.backgroundColor = UIColor.darkGray
         starImageView.image = UIImage(systemName: "star.fill")
         starImageView.tintColor = UIColor.systemYellow
         startLabel.font = UIFont.systemFont(ofSize: 12)
-        startLabel.textColor = UIColor.systemGray
+        startLabel.textColor = UIColor.white
     }
 }
