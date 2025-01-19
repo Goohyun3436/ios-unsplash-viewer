@@ -32,7 +32,7 @@ class ImageCardView: BaseImageView {
     private func imageTapped() {
         guard let photo else { return }
         
-        TopicViewController.selectedPhoto = photo
+        UIApplication.shared.keyWindow?.rootViewController?.presentImageDetailView(photo)
     }
     
     //MARK: - Configure Method

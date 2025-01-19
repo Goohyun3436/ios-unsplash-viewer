@@ -16,13 +16,13 @@ class TapBarController: UITabBarController {
     }
     
     private func configureTBC() {
-        let topicVC = makeVC(TopicViewController(), title: "OUR TOPIC", icon: "chart.xyaxis.line")
-        let searchVC = makeVC(SearchViewController(), title: "SEARCH PHOTO", icon: "magnifyingglass")
+        let topicNav = makeNav(TopicViewController(), title: "OUR TOPIC", icon: "chart.xyaxis.line")
+        let searchNav = makeNav(SearchViewController(), title: "SEARCH PHOTO", icon: "magnifyingglass")
         
-        setViewControllers([topicVC, searchVC], animated: true)
+        setViewControllers([topicNav, searchNav], animated: true)
     }
     
-    private func makeVC(_ viewController: UIViewController, title: String, icon: String) -> UIViewController {
+    private func makeNav(_ viewController: UIViewController, title: String, icon: String) -> UINavigationController {
         let vc = viewController
         let nav = UINavigationController(rootViewController: vc)
         vc.navigationItem.title = title

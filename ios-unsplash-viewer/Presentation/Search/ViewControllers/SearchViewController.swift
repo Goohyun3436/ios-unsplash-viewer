@@ -23,7 +23,7 @@ class SearchViewController: UIViewController {
                     self.totalPages = data.total_pages
                     self.photos = data.results
                     
-                    print(self.total, self.totalPages, self.photos)
+//                    print(self.total, self.totalPages, self.photos)
                 }
             }
         }
