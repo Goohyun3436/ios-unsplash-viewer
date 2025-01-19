@@ -37,6 +37,10 @@ class SearchViewController: UIViewController {
     //MARK: - Property
     var query: String? {
         didSet {
+            guard let query else {
+                return
+            }
+            
             guard oldValue != query else {
                 return
             }
@@ -60,14 +64,14 @@ class SearchViewController: UIViewController {
     private let perPage: Int = 20
     private var orderBy = OrderBy.relevant {
         didSet {
-            removePhotos()
+            clearPhotos()
             page = 1
         }
     }
     private let colors = ColorFilter.allCases
     private var color: ColorFilter? {
         didSet {
-            removePhotos()
+            clearPhotos()
             page = 1
         }
     }
@@ -144,7 +148,7 @@ class SearchViewController: UIViewController {
         sortButton.configureData(orderBy)
     }
     
-    private func removePhotos() {
+    private func clearPhotos() {
         photos = []
         total = 0
         totalPages = 0
@@ -256,8 +260,9 @@ extension SearchViewController: UISearchBarDelegate {
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         searchBar.text = ""
-        removePhotos()
+        clearPhotos()
         setStatusLabel(SearchStatus.normal)
+        query = nil
         
         view.endEditing(true)
         searchBar.setShowsCancelButton(false, animated: true)
