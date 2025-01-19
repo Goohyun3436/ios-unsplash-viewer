@@ -17,22 +17,47 @@ class SearchViewController: UIViewController {
     //MARK: - Property
     var query: String? {
         didSet {
-            if let query {
-                NetworkManager.shared.unsplashSearchPhotos(query, 1, 20, orderBy: OrderBy.latest) { data in
-                    self.total = data.total
-                    self.totalPages = data.total_pages
-                    self.photos = data.results
-                    
-//                    print(self.total, self.totalPages, self.photos)
-                }
+            callRequest(query)
+        }
+    }
+    var page: Int = 1 {
+        didSet {
+            callRequest(query)
+            
+            if page == totalPages {
+                isEnd = true
             }
         }
     }
+    let perPage: Int = 20
     var total: Int = 0
     var totalPages: Int = 0
     var photos = [Photo]() {
         didSet {
             collectionView.reloadData()
+        }
+    }
+    var isEnd: Bool = false
+    
+    //MARK: - Method
+    func callRequest(_ query: String?) {
+        guard let query else { return }
+        
+        print(#function)
+        print(query, page, perPage)
+        
+        NetworkManager.shared.unsplashSearchPhotos(query, page, perPage, orderBy: OrderBy.relevant) { data in
+            if self.page == 1 {
+                self.total = data.total
+                self.totalPages = data.total_pages
+                self.photos = data.results
+            } else {
+                self.photos.append(contentsOf: data.results)
+            }
+            
+//            print(self.total, self.totalPages, self.photos)
+            
+            print("\(self.photos.count)/\(self.total)")
         }
     }
     
@@ -45,7 +70,7 @@ class SearchViewController: UIViewController {
         configureSearchBar()
         configureCollectionView()
         
-        query = "robot"
+        query = "FF"
     }
     
     func configureSearchBar() {
@@ -63,6 +88,7 @@ class SearchViewController: UIViewController {
     func configureCollectionView() {
         collectionView.delegate = self
         collectionView.dataSource = self
+        collectionView.prefetchDataSource = self
         
         collectionView.register(SearchCollectionViewCell.self, forCellWithReuseIdentifier: SearchCollectionViewCell.identifier)
         
@@ -116,7 +142,7 @@ extension SearchViewController: UISearchBarDelegate {
 }
 
 //MARK: - UICollectionView
-extension SearchViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+extension SearchViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDataSourcePrefetching {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return photos.count
@@ -128,6 +154,18 @@ extension SearchViewController: UICollectionViewDelegate, UICollectionViewDataSo
         cell.configureData(photos[indexPath.item])
         
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
+        guard !isEnd else {
+            return
+        }
+        
+        for item in indexPaths {
+            if photos.count - 2 == item.item {
+                page += 1
+            }
+        }
     }
     
 }
