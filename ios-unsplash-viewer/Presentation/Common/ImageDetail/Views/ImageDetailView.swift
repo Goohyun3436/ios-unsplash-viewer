@@ -19,7 +19,7 @@ class ImageDetailView: BaseView {
     private let infoView = InfoView()
     
     //MARK: - Configure Method
-    func configureData(photo: TopicsPhoto, statistics: PhotosStatistics) {
+    func configureData(photo: Photo, statistics: PhotosStatistics) {
         userView.configureData(photo.user, photo.created_at_format)
         
         let url = URL(string: photo.urls.regular)

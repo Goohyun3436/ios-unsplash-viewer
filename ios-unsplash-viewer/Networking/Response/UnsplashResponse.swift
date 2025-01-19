@@ -7,8 +7,8 @@
 
 import Foundation
 
-//MARK: - TopicsPhoto
-struct TopicsPhoto: Decodable {
+//MARK: - Photo
+struct Photo: Decodable {
     let id: String
     let urls: Url
     let likes: Int
@@ -56,4 +56,3 @@ struct PhotosStatistics: Decodable {
 struct traffic: Decodable {
     let total: Int
 }
-

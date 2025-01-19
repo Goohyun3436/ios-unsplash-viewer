@@ -23,3 +23,16 @@ enum Topic: String {
         }
     }
 }
+
+enum OrderBy: String {
+    case latest, relevant
+    
+    var ko: String {
+        switch self {
+        case .latest:
+            return "최신순"
+        case .relevant:
+            return "관련순"
+        }
+    }
+}

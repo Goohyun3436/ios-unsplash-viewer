@@ -14,27 +14,49 @@ class NetworkManager {
     
     private init() {}
     
-    func unsplashTopicsPhotos(_ topic: Topic, _ page: Int, _ perPage: Int, completionHandler: @escaping ([TopicsPhoto]) -> Void) {
-        let url = APIUrl.unsplash + APIPathParamUnsplash.topicsPhotos.pathParam(topicId: topic.rawValue, page: page, perPage: perPage)
+    func unsplashTopicsPhotos(_ topic: Topic, _ page: Int, _ perPage: Int, completionHandler: @escaping ([Photo]) -> Void) {
+        let url = APIUrl.unsplash + APIPathParamUnsplash.topicsPhotos.pathParam(topic: topic, page: page, perPage: perPage)
         
         let header: HTTPHeaders = [
             "Authorization": APIKey.unsplashAccess
         ]
         
-        AF.request(url, method: .get, headers: header).responseDecodable(of: [TopicsPhoto].self) { response in
+        AF.request(url, method: .get, headers: header).responseDecodable(of: [Photo].self) { response in
             
             switch response.result {
-            case .success(let data):
-                completionHandler(data)
+                case .success(let data):
+                    completionHandler(data)
                     
-            case .failure(let err):
-                print(err)
+                case .failure(let err):
+                    print(err)
                     
             }
         }
     }
     
-    func unsplashSearchPhotos() {}
+    func unsplashSearchPhotos(_ query: String, _ page: Int, _ perPage: Int, orderBy: OrderBy) {
+        let url = APIUrl.unsplash + APIPathParamUnsplash.searchPhotos.pathParam(query: query, page: page, perPage: perPage, orderBy: orderBy)
+        
+        let header: HTTPHeaders = [
+            "Authorization": APIKey.unsplashAccess
+        ]
+        
+        AF.request(url, method: .get, headers: header).responseString { res in
+            print(res)
+        }
+        
+        //            .responseDecodable(of: PhotosStatistics.self) { response in
+        //
+        //            switch response.result {
+        //            case .success(let data):
+        //                completionHandler(data)
+        //
+        //            case .failure(let err):
+        //                print(err)
+        //
+        //            }
+        //        }
+    }
     
     func unsplashPhotosStatistics(_ imageId: String, completionHandler: @escaping (PhotosStatistics) -> Void) {
         let url = APIUrl.unsplash + APIPathParamUnsplash.photosStatistics.pathParam(imageId: imageId)
@@ -46,14 +68,13 @@ class NetworkManager {
         AF.request(url, method: .get, headers: header).responseDecodable(of: PhotosStatistics.self) { response in
             
             switch response.result {
-            case .success(let data):
-                completionHandler(data)
+                case .success(let data):
+                    completionHandler(data)
                     
-            case .failure(let err):
-                print(err)
+                case .failure(let err):
+                    print(err)
                     
             }
         }
     }
-    
 }

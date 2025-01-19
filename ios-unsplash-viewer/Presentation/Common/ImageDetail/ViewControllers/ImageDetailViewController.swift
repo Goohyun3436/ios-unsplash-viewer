@@ -13,7 +13,7 @@ class ImageDetailViewController: UIViewController {
     private let mainView = ImageDetailView()
     
     //MARK: - Property
-    var photo: TopicsPhoto? {
+    var photo: Photo? {
         didSet {
             if let photo {
                 NetworkManager.shared.unsplashPhotosStatistics(photo.id) { data in

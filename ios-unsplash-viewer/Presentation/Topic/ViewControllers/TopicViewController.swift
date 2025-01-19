@@ -13,7 +13,7 @@ class TopicViewController: UIViewController {
     private lazy var mainView = TopicView()
     
     //MARK: - Property
-    static var selectedPhoto: TopicsPhoto? {
+    static var selectedPhoto: Photo? {
         didSet {
             // https://gist.github.com/salvar-labs/f574927b77d466e332261ac1647e19a4
             let vc = ImageDetailViewController()
@@ -25,7 +25,6 @@ class TopicViewController: UIViewController {
         }
     }
     private let topics = [Topic.goldenHour, Topic.businessWork, Topic.architectureInterior]
-    private var topicsPhotos = [[TopicsPhoto]]()
     
     
     //MARK: - Override Method
@@ -40,7 +39,6 @@ class TopicViewController: UIViewController {
 //        for i in topics.indices {
             NetworkManager.shared.unsplashTopicsPhotos(topics[i], 1, 10) { data in
                 self.mainView.topicBannerViews[i].configureData(self.topics[i].ko, photo: data)
-                self.topicsPhotos.append(data)
             }
         }
     }

@@ -28,7 +28,7 @@ class TopicBannerView: BaseStackView {
     ]
     
     //MARK: - Configure Method
-    func configureData(_ topicId: String, photo: [TopicsPhoto]) {
+    func configureData(_ topicId: String, photo: [Photo]) {
         topicLabel.text = topicId
         
         for i in photo.indices {

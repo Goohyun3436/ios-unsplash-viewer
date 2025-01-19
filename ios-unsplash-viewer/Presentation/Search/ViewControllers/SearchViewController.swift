@@ -13,6 +13,15 @@ class SearchViewController: UIViewController {
     //MARK: - UI Property
     let searchBar = UISearchBar()
     
+    //MARK: - Property
+    var query: String? {
+        didSet {
+            if let query {
+                NetworkManager.shared.unsplashSearchPhotos(query, 1, 1, orderBy: OrderBy.latest)
+            }
+        }
+    }
+    
     //MARK: - Override Method
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -53,22 +62,36 @@ class SearchViewController: UIViewController {
 //MARK: - UISearchBar
 extension SearchViewController: UISearchBarDelegate {
     
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        searchBar.setShowsCancelButton(true, animated: true)
+    }
+    
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         view.endEditing(true)
         searchBar.setShowsCancelButton(false, animated: true)
+        
+        guard var query = searchBar.text else {
+            return
+        }
+        
+        query = query.trimmingCharacters(in: .whitespaces)
+        
+        guard !query.isEmpty else {
+            // 빈쿼리
+            return
+        }
+        
+        guard query.count >= 2 else {
+            // 2글자 이상
+            return
+        }
+        
+        self.query = query
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         view.endEditing(true)
         searchBar.setShowsCancelButton(false, animated: true)
-    }
-    
-    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-        searchBar.setShowsCancelButton(true, animated: true)
-    }
-    
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        print(searchText)
     }
     
 }

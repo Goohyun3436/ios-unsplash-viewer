@@ -17,7 +17,7 @@ class BannerImageView: BaseImageView {
     private let startLabel = UILabel()
     
     //MARK: - Property
-    private var photo: TopicsPhoto?
+    private var photo: Photo?
     
     //MARK: - initialize Method
     override init() {
@@ -36,7 +36,7 @@ class BannerImageView: BaseImageView {
     }
     
     //MARK: - Configure Method
-    func configureData(_ photo: TopicsPhoto) {
+    func configureData(_ photo: Photo) {
         self.photo = photo
         let url = URL(string: photo.urls.regular)
         kf.setImage(with: url)
