@@ -226,6 +226,8 @@ class SearchViewController: UIViewController {
         collectionView.prefetchDataSource = self
         
         collectionView.register(SearchCollectionViewCell.self, forCellWithReuseIdentifier: SearchCollectionViewCell.identifier)
+        
+        collectionView.keyboardDismissMode = .onDrag
     }
     
 }
