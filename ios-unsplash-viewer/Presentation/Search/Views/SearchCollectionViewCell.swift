@@ -10,7 +10,7 @@ import UIKit
 class SearchCollectionViewCell: BaseCollectionViewCell {
     
     //MARK: - UI Property
-    private let mainView = ImageCardView(corner: true)
+    private let mainView = ImageCardView(radius: 0)
     
     //MARK: - Property
     static let identifier = "SearchCollectionViewCell"
@@ -31,7 +31,7 @@ class SearchCollectionViewCell: BaseCollectionViewCell {
     }
     
     override func configureView() {
-        backgroundColor = .orange
+        backgroundColor = UIColor.lightGray
     }
     
 }

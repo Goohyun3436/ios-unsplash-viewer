@@ -84,8 +84,6 @@ class SearchViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = UIColor.systemBackground
-        
         setStatusLabel(SearchStatus.normal)
         
         configureSearchBar()
@@ -194,6 +192,7 @@ class SearchViewController: UIViewController {
     }
     
     private func configureView() {
+        view.backgroundColor = UIColor.systemBackground
         statusLabel.font = UIFont.systemFont(ofSize: 18, weight: .black)
         statusLabel.textColor = UIColor.label
     }

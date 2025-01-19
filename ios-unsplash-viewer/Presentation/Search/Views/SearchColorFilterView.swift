@@ -37,6 +37,7 @@ class SearchColorFilterView: BaseScrollView {
     
     override func configureLayout() {
         keyboardDismissMode = .onDrag
+        showsHorizontalScrollIndicator = false
         
         contentView.snp.makeConstraints { make in
             make.horizontalEdges.equalToSuperview().inset(16)

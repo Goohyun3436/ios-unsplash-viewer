@@ -37,8 +37,6 @@ class NetworkManager {
     func unsplashSearchPhotos(_ query: String, _ page: Int, _ perPage: Int, _ orderBy: OrderBy, _ color: ColorFilter?, completionHandler: @escaping (SearchPhotos) -> Void) {
         let url = APIUrl.unsplash + APIPathParamUnsplash.searchPhotos.pathParam(query: query, page: page, perPage: perPage, orderBy: orderBy, color: color)
         
-        print(url)
-        
         let header: HTTPHeaders = [
             "Authorization": APIKey.unsplashAccess
         ]

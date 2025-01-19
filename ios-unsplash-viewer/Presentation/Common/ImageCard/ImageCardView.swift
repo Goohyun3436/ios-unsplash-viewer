@@ -20,10 +20,10 @@ class ImageCardView: BaseImageView {
     private var photo: Photo?
     
     //MARK: - initialize Method
-    init(corner clipsToBounds: Bool) {
+    init(radius cornerRadius: CGFloat = 12) {
         super.init()
         
-        self.clipsToBounds = clipsToBounds
+        self.layer.cornerRadius = cornerRadius
         
         let singleTap = UITapGestureRecognizer(target: self, action: #selector(imageTapped))
         isUserInteractionEnabled = true
@@ -53,8 +53,8 @@ class ImageCardView: BaseImageView {
     
     override func configureLayout() {
         starWrapView.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(8)
-            make.bottom.equalToSuperview().inset(8)
+            make.leading.equalToSuperview().offset(12)
+            make.bottom.equalToSuperview().inset(12)
         }
         starWrapView.axis = .horizontal
         starWrapView.spacing = 8
@@ -67,8 +67,8 @@ class ImageCardView: BaseImageView {
     }
     
     override func configureView() {
+        clipsToBounds = true
         contentMode = .scaleAspectFill
-        layer.cornerRadius = 12
         backgroundColor = UIColor.lightGray
         starWrapView.layer.cornerRadius = 12
         starWrapView.backgroundColor = UIColor.darkGray
