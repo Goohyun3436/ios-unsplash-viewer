@@ -35,4 +35,13 @@ enum OrderBy: String {
             return "최신순"
         }
     }
+    
+    func toggle() -> OrderBy {
+        switch self {
+        case .relevant:
+            return OrderBy.latest
+        case .latest:
+            return OrderBy.relevant
+        }
+    }
 }

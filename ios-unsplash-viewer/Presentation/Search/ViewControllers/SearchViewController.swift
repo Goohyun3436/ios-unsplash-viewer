@@ -38,7 +38,8 @@ class SearchViewController: UIViewController {
     let perPage: Int = 20
     var orderBy = OrderBy.relevant {
         didSet {
-            print(orderBy)
+            removePhotos()
+            page = 1
         }
     }
     var total: Int = 0
@@ -49,6 +50,20 @@ class SearchViewController: UIViewController {
         }
     }
     var isEnd: Bool = false
+    
+    //MARK: - Override Method
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        view.backgroundColor = UIColor.systemBackground
+        
+        configureSearchBar()
+        configureSortButton()
+        configureCollectionView()
+        
+        configureHierarchy()
+        configureLayout()
+    }
     
     //MARK: - Method
     func callRequest(_ query: String?) {
@@ -62,6 +77,7 @@ class SearchViewController: UIViewController {
                 self.total = data.total
                 self.totalPages = data.total_pages
                 self.photos = data.results
+                self.collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: true)
             } else {
                 self.photos.append(contentsOf: data.results)
             }
@@ -72,30 +88,16 @@ class SearchViewController: UIViewController {
         }
     }
     
-    func collectionViewScrollToTop() {
-        collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: true)
+    @objc private func sortButtonTapped() {
+        orderBy = orderBy.toggle()
+        sortButton.configureData(orderBy)
     }
     
-    func removePhotos() {
+    private func removePhotos() {
         photos = []
         total = 0
         totalPages = 0
         isEnd = false
-    }
-    
-    //MARK: - Override Method
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        view.backgroundColor = UIColor.systemBackground
-        
-        configureSearchBar()
-        sortButton.configureData(orderBy)
-        configureCollectionView()
-        
-        configureHierarchy()
-        configureLayout()
-        configureView()
     }
     
     func configureHierarchy() {
@@ -125,11 +127,13 @@ class SearchViewController: UIViewController {
         }
     }
     
-    func configureView() {
-    }
-    
     func configureSearchBar() {
         searchBar.delegate = self
+    }
+    
+    func configureSortButton() {
+        sortButton.configureData(orderBy)
+        sortButton.addTarget(self, action: #selector(sortButtonTapped), for: .touchUpInside)
     }
     
     func configureCollectionView() {
