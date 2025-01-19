@@ -47,6 +47,13 @@ struct ProfileImage: Decodable {
     let small: String
 }
 
+//MARK: - Search Photos
+struct SearchPhotos: Decodable {
+    let total: Int
+    let total_pages: Int
+    let results: [Photo]
+}
+
 //MARK: - PhotosStatistics
 struct PhotosStatistics: Decodable {
     let downloads: traffic

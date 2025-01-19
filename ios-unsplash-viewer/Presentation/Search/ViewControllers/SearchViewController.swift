@@ -12,12 +12,21 @@ class SearchViewController: UIViewController {
 
     //MARK: - UI Property
     let searchBar = UISearchBar()
+    var total: Int = 0
+    var totalPages: Int = 0
+    var photos = [Photo]()
     
     //MARK: - Property
     var query: String? {
         didSet {
             if let query {
-                NetworkManager.shared.unsplashSearchPhotos(query, 1, 1, orderBy: OrderBy.latest)
+                NetworkManager.shared.unsplashSearchPhotos(query, 1, 1, orderBy: OrderBy.latest) { data in
+                    self.total = data.total
+                    self.totalPages = data.total_pages
+                    self.photos = data.results
+                    
+                    print(self.total, self.totalPages, self.photos)
+                }
             }
         }
     }
@@ -29,6 +38,8 @@ class SearchViewController: UIViewController {
         view.backgroundColor = UIColor.yellow
         
         configureSearchBar()
+        
+        query = "robot"
         
         configureH()
         configureL()

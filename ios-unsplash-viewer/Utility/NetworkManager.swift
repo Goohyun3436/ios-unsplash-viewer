@@ -34,28 +34,24 @@ class NetworkManager {
         }
     }
     
-    func unsplashSearchPhotos(_ query: String, _ page: Int, _ perPage: Int, orderBy: OrderBy) {
+    func unsplashSearchPhotos(_ query: String, _ page: Int, _ perPage: Int, orderBy: OrderBy, completionHandler: @escaping (SearchPhotos) -> Void) {
         let url = APIUrl.unsplash + APIPathParamUnsplash.searchPhotos.pathParam(query: query, page: page, perPage: perPage, orderBy: orderBy)
         
         let header: HTTPHeaders = [
             "Authorization": APIKey.unsplashAccess
         ]
         
-        AF.request(url, method: .get, headers: header).responseString { res in
-            print(res)
+        AF.request(url, method: .get, headers: header).responseDecodable(of: SearchPhotos.self) { response in
+            
+            switch response.result {
+            case .success(let data):
+                completionHandler(data)
+                    
+            case .failure(let err):
+                print(err)
+                    
+            }
         }
-        
-        //            .responseDecodable(of: PhotosStatistics.self) { response in
-        //
-        //            switch response.result {
-        //            case .success(let data):
-        //                completionHandler(data)
-        //
-        //            case .failure(let err):
-        //                print(err)
-        //
-        //            }
-        //        }
     }
     
     func unsplashPhotosStatistics(_ imageId: String, completionHandler: @escaping (PhotosStatistics) -> Void) {
