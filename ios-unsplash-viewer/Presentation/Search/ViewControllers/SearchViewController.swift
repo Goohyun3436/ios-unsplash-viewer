@@ -17,6 +17,11 @@ class SearchViewController: UIViewController {
     //MARK: - Property
     var query: String? {
         didSet {
+            guard oldValue != query else {
+                return
+            }
+            
+            page = 1
             callRequest(query)
         }
     }
@@ -61,16 +66,25 @@ class SearchViewController: UIViewController {
         }
     }
     
+    func collectionViewScrollToTop() {
+        collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: true)
+    }
+    
+    func removePhotos() {
+        photos = []
+        total = 0
+        totalPages = 0
+        isEnd = false
+    }
+    
     //MARK: - Override Method
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        view.backgroundColor = UIColor.yellow
+        
+        view.backgroundColor = UIColor.systemBackground
         
         configureSearchBar()
         configureCollectionView()
-        
-        query = "FF"
     }
     
     func configureSearchBar() {
@@ -135,6 +149,8 @@ extension SearchViewController: UISearchBarDelegate {
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         searchBar.text = ""
+        removePhotos()
+        
         view.endEditing(true)
         searchBar.setShowsCancelButton(false, animated: true)
     }
