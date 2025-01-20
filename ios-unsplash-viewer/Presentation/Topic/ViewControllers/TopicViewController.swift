@@ -33,7 +33,10 @@ class TopicViewController: UIViewController {
         for i in randomTopics.indices {
             NetworkManager.shared.unsplashTopicsPhotos(randomTopics[i], 1, 10) { data in
                 self.mainView.topicBannerViews[i].configureData(randomTopics[i].ko, photo: data)
-                self.mainView.endRefreshing()
+                
+                if i == randomTopics.count - 1 {
+                    self.mainView.endRefreshing()
+                }
             }
         }
     }
