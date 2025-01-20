@@ -20,7 +20,7 @@ enum Topic: String, CaseIterable {
     case archival  = "archival"
     case experimental  = "experimental"
     case animals  = "animals"
-    case fashionBeauty  = "fashion-beaut"
+    case fashionBeauty  = "fashion-beauty"
     case people  = "people"
     case businessWork = "business-work"
     case foodDrink  = "food-drink"
