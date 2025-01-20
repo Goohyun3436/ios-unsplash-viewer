@@ -13,7 +13,7 @@ class TopicViewController: UIViewController {
     private lazy var mainView = TopicView()
     
     //MARK: - Property
-    private let topics = [Topic.goldenHour, Topic.businessWork, Topic.architectureInterior]
+    private let topics = Topic.allCases
     
     //MARK: - Override Method
     override func loadView() {
@@ -23,9 +23,11 @@ class TopicViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        for i in topics.indices {
-            NetworkManager.shared.unsplashTopicsPhotos(topics[i], 1, 10) { data in
-                self.mainView.topicBannerViews[i].configureData(self.topics[i].ko, photo: data)
+        let randomTopics = topics.shuffled().prefix(3)
+        
+        for i in randomTopics.indices {
+            NetworkManager.shared.unsplashTopicsPhotos(randomTopics[i], 1, 10) { data in
+                self.mainView.topicBannerViews[i].configureData(randomTopics[i].ko, photo: data)
             }
         }
     }
