@@ -20,8 +20,6 @@ class NetworkManager {
         
         AF.request(url, method: .get, headers: unsplashHeader).responseDecodable(of: responseT) { response in
             
-            sleep(2)
-            
             switch response.result {
                 case .success(let data):
                     completionHandler(data)

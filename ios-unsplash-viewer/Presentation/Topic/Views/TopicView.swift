@@ -25,7 +25,9 @@ class TopicView: BaseView {
     ]
     
     //MARK: - Property
-    var refresh: (() -> Void)?
+    let timer = DispatchTimeInterval.seconds(30)
+    var isValid: Bool = true
+    private var refresh: (() -> Void)?
     
     //MARK: - Initializer Method
     init(refreshHandler: @escaping () -> Void) {
@@ -38,6 +40,13 @@ class TopicView: BaseView {
     @objc
     func refreshHandler() {
         guard let refresh else {
+            return
+        }
+        
+        guard isValid else {
+            DispatchQueue.main.async {
+                self.scrollView.refreshControl?.endRefreshing()
+            }
             return
         }
         
@@ -55,6 +64,12 @@ class TopicView: BaseView {
         
         DispatchQueue.main.async {
             self.scrollView.refreshControl?.endRefreshing()
+        }
+        
+        isValid = false
+        
+        DispatchQueue.global().asyncAfter(deadline: .now() + timer) {
+            self.isValid = true
         }
     }
     
