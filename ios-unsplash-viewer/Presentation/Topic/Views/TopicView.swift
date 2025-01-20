@@ -11,14 +11,44 @@ import SnapKit
 class TopicView: BaseView {
     
     //MARK: - UI Property
-    let scrollView = UIScrollView()
+    lazy var scrollView = {
+        let view = UIScrollView()
+        view.refreshControl = UIRefreshControl()
+        view.refreshControl?.addTarget(self, action: #selector(refreshHandler), for: .valueChanged)
+        return view
+    }()
     private let contentView = UIStackView()
     let topicBannerViews = [
         TopicBannerView(),
         TopicBannerView(),
         TopicBannerView()
     ]
+    
+    //MARK: - Property
+    var refresh: (() -> DispatchGroup)?
+    
+    //MARK: - Initializer Method
+    @objc init(refreshHandler: @escaping () -> DispatchGroup) {
+        super.init(frame: .zero)
+        
+        refresh = refreshHandler
+    }
    
+    @objc
+    func refreshHandler() {
+        guard let refresh else {
+            return
+        }
+        
+        let group = refresh()
+        
+        group.notify(queue: .main) {
+            DispatchQueue.main.async {
+                self.scrollView.refreshControl?.endRefreshing()
+            }
+        }
+    }
+    
     //MARK: - Configure Method
     override func configureHierarchy() {
         addSubview(scrollView)
