@@ -26,23 +26,16 @@ class TopicViewController: UIViewController {
     }
     
     //MARK: - Method
-    @discardableResult
-    func fetchRandomTopics() -> DispatchGroup {
+    func fetchRandomTopics() {
         let randomTopics = Topic.allCases.shuffled().prefix(3)
         
-        let group = DispatchGroup()
-        
+        // 데이터 받아오는 동안 탭바 버튼 눌림, 메인 스레드 + 동기적으로 실행해야 하는지?
         for i in randomTopics.indices {
-            group.enter()
-            
             NetworkManager.shared.unsplashTopicsPhotos(randomTopics[i], 1, 10) { data in
                 self.mainView.topicBannerViews[i].configureData(randomTopics[i].ko, photo: data)
-                
-                group.leave()
+                self.mainView.endRefreshing()
             }
         }
-        
-        return group
     }
     
 }

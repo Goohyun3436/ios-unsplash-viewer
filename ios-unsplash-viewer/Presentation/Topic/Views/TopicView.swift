@@ -25,27 +25,36 @@ class TopicView: BaseView {
     ]
     
     //MARK: - Property
-    var refresh: (() -> DispatchGroup)?
+    var refresh: (() -> Void)?
     
     //MARK: - Initializer Method
-    init(refreshHandler: @escaping () -> DispatchGroup) {
+    init(refreshHandler: @escaping () -> Void) {
         super.init(frame: .zero)
         
         refresh = refreshHandler
     }
    
+    //MARK: - Method
     @objc
     func refreshHandler() {
         guard let refresh else {
             return
         }
         
-        let group = refresh()
+        refresh()
+    }
+    
+    func endRefreshing() {
+        guard let isRefreshing = self.scrollView.refreshControl?.isRefreshing else {
+            return
+        }
         
-        group.notify(queue: .main) {
-            DispatchQueue.main.async {
-                self.scrollView.refreshControl?.endRefreshing()
-            }
+        guard isRefreshing else {
+            return
+        }
+        
+        DispatchQueue.main.async {
+            self.scrollView.refreshControl?.endRefreshing()
         }
     }
     
