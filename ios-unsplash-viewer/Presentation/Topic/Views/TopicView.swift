@@ -28,7 +28,7 @@ class TopicView: BaseView {
     var refresh: (() -> DispatchGroup)?
     
     //MARK: - Initializer Method
-    @objc init(refreshHandler: @escaping () -> DispatchGroup) {
+    init(refreshHandler: @escaping () -> DispatchGroup) {
         super.init(frame: .zero)
         
         refresh = refreshHandler
