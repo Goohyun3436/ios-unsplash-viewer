@@ -11,8 +11,8 @@ import SnapKit
 class TopicBannerView: BaseStackView {
     
     //MARK: - UI Property
-    let topicLabel = UILabel()
-    private let imageScrollView = UIScrollView()
+    private let topicLabel = UILabel()
+    let imageScrollView = UIScrollView()
     private let imageWrapView = UIStackView()
     private let imageViews = [
         ImageCardView(),
@@ -34,6 +34,10 @@ class TopicBannerView: BaseStackView {
         for i in photo.indices {
             imageViews[i].configureData(photo[i])
         }
+    }
+    
+    func scrollToFirst() {
+        imageScrollView.setContentOffset(.zero, animated: true)
     }
     
     override func configureHierarchy() {

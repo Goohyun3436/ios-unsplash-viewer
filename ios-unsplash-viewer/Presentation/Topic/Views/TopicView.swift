@@ -38,10 +38,12 @@ class TopicView: BaseView {
    
     //MARK: - Method
     @objc
-    func refreshHandler() {
+    private func refreshHandler() {
         guard let refresh else {
             return
         }
+        
+        scrollToFirst()
         
         guard isValid else {
             DispatchQueue.main.async {
@@ -70,6 +72,12 @@ class TopicView: BaseView {
         
         DispatchQueue.global().asyncAfter(deadline: .now() + timer) {
             self.isValid = true
+        }
+    }
+    
+    private func scrollToFirst() {
+        for item in topicBannerViews {
+            item.imageScrollView.setContentOffset(.zero, animated: true)
         }
     }
     
