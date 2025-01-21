@@ -82,6 +82,12 @@ class TopicView: BaseView {
     }
     
     //MARK: - Configure Method
+    func configureData(_ topics: [Topic], _ photos: [[Photo]?]) {
+        for i in topicBannerViews.indices {
+            topicBannerViews[i].configureData(topics[i].ko, photo: photos[i])
+        }
+    }
+    
     override func configureHierarchy() {
         addSubview(scrollView)
         scrollView.addSubview(contentView)

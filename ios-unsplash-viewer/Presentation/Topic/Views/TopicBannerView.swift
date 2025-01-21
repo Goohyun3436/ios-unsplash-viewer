@@ -28,10 +28,19 @@ class TopicBannerView: BaseStackView {
     ]
     
     //MARK: - Configure Method
-    func configureData(_ topicId: String, photo: [Photo]) {
+    func configureData(_ topicId: String, photo: [Photo]?) {
+        guard let photo else {
+            topicLabel.isHidden = true
+            imageWrapView.isHidden = true
+            return
+        }
+        
+        topicLabel.isHidden = false
+        imageWrapView.isHidden = false
+        
         topicLabel.text = topicId
         
-        for i in photo.indices {
+        for i in imageViews.indices {
             imageViews[i].configureData(photo[i])
         }
     }
