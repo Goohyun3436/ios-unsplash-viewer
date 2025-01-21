@@ -14,8 +14,7 @@ enum ResponseStatusUnsplash {
     case unauthorized
     case forbidden
     case notFound
-    case server500
-    case server503
+    case server
     case unowned
     
     init(_ statusCode: Int?) {
@@ -30,33 +29,29 @@ enum ResponseStatusUnsplash {
                 self = .forbidden
             case 404:
                 self = .notFound
-            case 500:
-                self = .server500
-            case 503:
-                self = .server503
+            case 500, 503:
+                self = .server
             default:
                 self = .unowned
         }
     }
     
-    var statusCode: Int {
+    var statusCode: String {
         switch self {
             case .ok:
-                return 200
+                return "200"
             case .badRequest:
-                return 400
+                return "400"
             case .unauthorized:
-                return 401
+                return "401"
             case .forbidden:
-                return 403
+                return "403"
             case .notFound:
-                return 404
-            case .server500:
-                return 500
-            case .server503:
-                return 503
+                return "404"
+            case .server:
+                return "500, 503"
             case .unowned:
-                return 0
+                return "0"
         }
     }
     
@@ -72,9 +67,7 @@ enum ResponseStatusUnsplash {
                 return "접근 권한이 없습니다."
             case .notFound:
                 return "사진 가져오기에 실패했습니다."
-            case .server500:
-                return "Unsplash 서버에 문제가 생겼습니다."
-            case .server503:
+            case .server:
                 return "Unsplash 서버에 문제가 생겼습니다."
             case .unowned:
                 return "Unsplash 뷰어에 문제가 생겼습니다."
