@@ -19,8 +19,6 @@ class NetworkManager {
         _ responseT: ResponseType.Type,
         completionHandler: @escaping (ResponseType) -> Void
     ) {
-        print(request.endpoint)
-        print(request.parameters)
         AF.request(
             request.endpoint,
             method: request.method,
