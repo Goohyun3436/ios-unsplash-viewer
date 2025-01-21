@@ -14,8 +14,6 @@ class NetworkManager {
     
     private init() {}
     
-    private let unsplashHeader: HTTPHeaders =  ["Authorization": APIKey.unsplashAccess]
-    
     func unsplashGet<ResponseType: Decodable>(
         _ request: UnsplashRequest,
         _ responseT: ResponseType.Type,

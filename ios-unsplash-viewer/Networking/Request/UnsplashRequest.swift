@@ -38,14 +38,14 @@ enum UnsplashRequest {
         return ["Authorization": APIKey.unsplashAccess]
     }
     
-    var responsType: Decodable {
+    var responsType: Decodable.Type {
         switch self {
             case .topicsPhotos:
-                return [Photo].self as! Decodable
+                return [Photo].self
             case .searchPhotos:
-                return SearchPhotos.self as! Decodable
+                return SearchPhotos.self
             case .photosStatistics:
-                return PhotosStatistics.self as! Decodable
+                return PhotosStatistics.self
         }
     }
 }
