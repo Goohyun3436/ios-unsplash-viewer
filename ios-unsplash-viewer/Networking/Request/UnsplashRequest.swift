@@ -20,13 +20,38 @@ enum UnsplashRequest {
     case photosStatistics(_ imageId: String)
     
     var endpoint: String {
+        return APIUrl.unsplash + self.path
+    }
+    
+    var path: String {
         switch self {
-            case .topicsPhotos(let topic, let page, let perPage):
-                return APIUnsplash.topicsPhotos(topic, page, perPage).endpoint
-            case .searchPhotos(let query, let page, let perPage, let orderBy, let color):
-                return APIUnsplash.searchPhotos(query, page, perPage, orderBy, color).endpoint
+            case .topicsPhotos(let topic, _, _):
+                return "/topics/\(topic.rawValue)/photos"
+            case .searchPhotos:
+                return "/search/photos"
             case .photosStatistics(let imageId):
-                return APIUnsplash.photosStatistics(imageId).endpoint
+                return "/photos/\(imageId)/statistics"
+        }
+    }
+    
+    var parameters: Parameters {
+        switch self {
+            case .topicsPhotos(_, let page, let perPage):
+                return [
+                    "page": page,
+                    "per_page": perPage
+                ]
+            case .searchPhotos(let query, let page, let perPage, let orderBy, let color):
+                var query = [
+                    "query": query,
+                    "page": "\(page)",
+                    "per_page": "\(perPage)",
+                    "order_by": orderBy.rawValue,
+                ]
+                query["color"] = color?.rawValue
+                return query
+            case .photosStatistics:
+                return [:]
         }
     }
     

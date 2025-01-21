@@ -19,8 +19,14 @@ class NetworkManager {
         _ responseT: ResponseType.Type,
         completionHandler: @escaping (ResponseType) -> Void
     ) {
-        AF.request(request.endpoint, method: request.method, headers: request.header).responseDecodable(of: responseT) { response in
-            
+        print(request.endpoint)
+        print(request.parameters)
+        AF.request(
+            request.endpoint,
+            method: request.method,
+            parameters: request.parameters,
+            headers: request.header
+        ).responseDecodable(of: responseT) { response in
             switch response.result {
                 case .success(let data):
                     completionHandler(data)
