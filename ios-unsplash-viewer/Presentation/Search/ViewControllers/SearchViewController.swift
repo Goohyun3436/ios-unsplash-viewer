@@ -120,6 +120,8 @@ class SearchViewController: UIViewController {
             } else {
                 self.photos.append(contentsOf: data.results)
             }
+        } failHandler: { status in
+            self.presentUnsplashAlert(status)
         }
     }
     

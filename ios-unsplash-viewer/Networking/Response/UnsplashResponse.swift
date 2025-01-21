@@ -7,6 +7,81 @@
 
 import Foundation
 
+//MARK: - Error
+enum ResponseStatusUnsplash {
+    case ok
+    case badRequest
+    case unauthorized
+    case forbidden
+    case notFound
+    case server500
+    case server503
+    case unowned
+    
+    init(_ statusCode: Int?) {
+        switch statusCode {
+            case 200:
+                self = .ok
+            case 400:
+                self = .badRequest
+            case 401:
+                self = .unauthorized
+            case 403:
+                self = .forbidden
+            case 404:
+                self = .notFound
+            case 500:
+                self = .server500
+            case 503:
+                self = .server503
+            default:
+                self = .unowned
+        }
+    }
+    
+    var statusCode: Int {
+        switch self {
+            case .ok:
+                return 200
+            case .badRequest:
+                return 400
+            case .unauthorized:
+                return 401
+            case .forbidden:
+                return 403
+            case .notFound:
+                return 404
+            case .server500:
+                return 500
+            case .server503:
+                return 503
+            case .unowned:
+                return 0
+        }
+    }
+    
+    var ko: String {
+        switch self {
+            case .ok:
+                return ""
+            case .badRequest:
+                return "사진 가져오기에 실패했습니다."
+            case .unauthorized:
+                return "사용자를 찾을 수 없습니다."
+            case .forbidden:
+                return "접근 권한이 없습니다."
+            case .notFound:
+                return "사진 가져오기에 실패했습니다."
+            case .server500:
+                return "Unsplash 서버에 문제가 생겼습니다."
+            case .server503:
+                return "Unsplash 서버에 문제가 생겼습니다."
+            case .unowned:
+                return "Unsplash 뷰어에 문제가 생겼습니다."
+        }
+    }
+}
+
 //MARK: - Photo
 struct Photo: Decodable {
     let id: String

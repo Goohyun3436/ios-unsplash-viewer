@@ -32,4 +32,11 @@ extension UIViewController {
         nav.modalTransitionStyle = .crossDissolve
         present(nav, animated: true)
     }
+    
+    func presentUnsplashAlert(_ status: ResponseStatusUnsplash) {
+        let alert = UIAlertController(title: "\(status.statusCode)", message: status.ko, preferredStyle: .alert)
+        let ok = UIAlertAction(title: "확인", style: .destructive)
+        alert.addAction(ok)
+        present(alert, animated: true)
+    }
 }

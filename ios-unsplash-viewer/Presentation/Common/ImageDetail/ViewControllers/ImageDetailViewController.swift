@@ -18,6 +18,8 @@ class ImageDetailViewController: UIViewController {
             if let photo {
                 NetworkManager.shared.unsplashGet(.photosStatistics(photo.id), PhotosStatistics.self) { data in
                     self.mainView.configureData(photo: photo, statistics: data)
+                } failHandler: { status in
+                    self.presentUnsplashAlert(status)
                 }
             }
         }

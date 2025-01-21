@@ -17,7 +17,8 @@ class NetworkManager {
     func unsplashGet<ResponseType: Decodable>(
         _ request: UnsplashRequest,
         _ responseT: ResponseType.Type,
-        completionHandler: @escaping (ResponseType) -> Void
+        completionHandler: @escaping (ResponseType) -> Void,
+        failHandler: @escaping (ResponseStatusUnsplash) -> Void
     ) {
         AF.request(
             request.endpoint,
@@ -30,7 +31,7 @@ class NetworkManager {
                     completionHandler(data)
                     
                 case .failure(let err):
-                    print(err)
+                    failHandler(ResponseStatusUnsplash(response.response?.statusCode ?? 0))
             }
         }
     }
