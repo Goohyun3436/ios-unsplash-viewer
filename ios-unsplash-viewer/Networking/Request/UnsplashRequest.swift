@@ -6,6 +6,49 @@
 //
 
 import UIKit
+import Alamofire
+
+enum UnsplashRequest {
+    case topicsPhotos(_ topic: Topic,
+                      _ page: Int,
+                      _ perPage: Int)
+    case searchPhotos(_ query: String,
+                      _ page: Int,
+                      _ perPage: Int,
+                      _ orderBy: OrderBy,
+                      _ color: ColorFilter?)
+    case photosStatistics(_ imageId: String)
+    
+    var endpoint: String {
+        switch self {
+            case .topicsPhotos(let topic, let page, let perPage):
+                return APIUnsplash.topicsPhotos(topic, page, perPage).endpoint
+            case .searchPhotos(let query, let page, let perPage, let orderBy, let color):
+                return APIUnsplash.searchPhotos(query, page, perPage, orderBy, color).endpoint
+            case .photosStatistics(let imageId):
+                return APIUnsplash.photosStatistics(imageId).endpoint
+        }
+    }
+    
+    var method: HTTPMethod {
+        return .get
+    }
+    
+    var header: HTTPHeaders {
+        return ["Authorization": APIKey.unsplashAccess]
+    }
+    
+    var responsType: Decodable {
+        switch self {
+            case .topicsPhotos:
+                return [Photo].self as! Decodable
+            case .searchPhotos:
+                return SearchPhotos.self as! Decodable
+            case .photosStatistics:
+                return PhotosStatistics.self as! Decodable
+        }
+    }
+}
 
 enum Topic: String, CaseIterable {
     case architectureInterior = "architecture-interior"

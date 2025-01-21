@@ -16,7 +16,7 @@ class ImageDetailViewController: UIViewController {
     var photo: Photo? {
         didSet {
             if let photo {
-                NetworkManager.shared.unsplashPhotosStatistics(photo.id) { data in
+                NetworkManager.shared.unsplashGet(.photosStatistics(photo.id), PhotosStatistics.self) { data in
                     self.mainView.configureData(photo: photo, statistics: data)
                 }
             }

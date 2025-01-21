@@ -104,7 +104,7 @@ class SearchViewController: UIViewController {
     private func callRequest(_ query: String?) {
         guard let query else { return }
         
-        NetworkManager.shared.unsplashSearchPhotos(query, page, perPage, orderBy, color) { data in
+        NetworkManager.shared.unsplashGet(.searchPhotos(query, page, perPage, orderBy, color), SearchPhotos.self) { data in
             if self.page == 1 {
                 self.total = data.total
                 self.totalPages = data.total_pages

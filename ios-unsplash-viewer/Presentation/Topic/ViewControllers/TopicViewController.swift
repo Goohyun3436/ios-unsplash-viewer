@@ -31,7 +31,7 @@ class TopicViewController: UIViewController {
         
         // 데이터 받아오는 동안 탭바 버튼 눌림, 메인 스레드 + 동기적으로 실행해야 하는지?
         for i in randomTopics.indices {
-            NetworkManager.shared.unsplashTopicsPhotos(randomTopics[i], 1, 10) { data in
+            NetworkManager.shared.unsplashGet(.topicsPhotos(randomTopics[i], 1, 10), [Photo].self) { data in
                 self.mainView.topicBannerViews[i].configureData(randomTopics[i].ko, photo: data)
                 
                 if i == randomTopics.count - 1 {
