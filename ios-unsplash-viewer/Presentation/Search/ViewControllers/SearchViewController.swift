@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-enum SearchStatus {
+private enum SearchStatus {
     case normal, emptyQuery, shortQuery, emptyData
     
     var message: String {
@@ -25,7 +25,7 @@ enum SearchStatus {
     }
 }
 
-class SearchViewController: UIViewController {
+final class SearchViewController: UIViewController {
 
     //MARK: - UI Property
     private let searchBar = PhotoSearchBar()
@@ -141,6 +141,8 @@ class SearchViewController: UIViewController {
         
         guard query != nil else { return }
         
+        guard photos.count > 0 else { return }
+        
         let newColor = colors[sender.tag]
         
         guard color != newColor else {
@@ -158,6 +160,8 @@ class SearchViewController: UIViewController {
         view.endEditing(true)
         
         guard query != nil else { return }
+        
+        guard photos.count > 0 else { return }
         
         orderBy = orderBy.toggle()
         sortButton.configureData(orderBy)

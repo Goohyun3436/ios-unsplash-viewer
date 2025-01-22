@@ -7,7 +7,7 @@
 
 import UIKit
 
-class SearchSortButton: BaseButton {
+final class SearchSortButton: BaseButton {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
