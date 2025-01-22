@@ -23,7 +23,7 @@ enum UnsplashRequest {
         return APIUrl.unsplash + self.path
     }
     
-    var path: String {
+    private var path: String {
         switch self {
         case .topicsPhotos(let topic, _, _):
             return "/topics/\(topic.rawValue)/photos"

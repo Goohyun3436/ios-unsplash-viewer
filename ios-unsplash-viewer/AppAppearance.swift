@@ -7,7 +7,7 @@
 
 import UIKit
 
-class AppAppearance {
+final class AppAppearance {
     static func setUpAppearance() {
         let appearanceT = UITabBarAppearance()
         appearanceT.configureWithTransparentBackground()
