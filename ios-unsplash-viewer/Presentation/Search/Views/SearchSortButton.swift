@@ -25,8 +25,6 @@ class SearchSortButton: BaseButton {
         setImage(UIImage(systemName: "arrow.up.and.down.text.horizontal"), for: .normal)
         setTitle("", for: .normal)
         titleLabel?.font = UIFont.systemFont(ofSize: 14, weight: .bold)
-        setTitleColor(UIColor.label, for: .normal)
-        tintColor = UIColor.label
     }
     
     func configureData(_ orderBy: OrderBy) {

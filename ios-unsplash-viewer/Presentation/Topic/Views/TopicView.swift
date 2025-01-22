@@ -111,9 +111,4 @@ final class TopicView: BaseView {
         contentView.spacing = 16
     }
     
-    override func configureView() {
-        backgroundColor = UIColor.systemBackground
-        contentView.backgroundColor = UIColor.systemBackground
-    }
-    
 }

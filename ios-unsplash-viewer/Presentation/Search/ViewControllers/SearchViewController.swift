@@ -213,7 +213,6 @@ class SearchViewController: UIViewController {
     private func configureView() {
         view.backgroundColor = UIColor.systemBackground
         statusLabel.font = UIFont.systemFont(ofSize: 18, weight: .black)
-        statusLabel.textColor = UIColor.label
     }
     
     private func configureSearchBar() {

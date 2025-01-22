@@ -70,8 +70,4 @@ final class ImageDetailView: BaseView {
         }
     }
     
-    override func configureView() {
-        backgroundColor = UIColor.systemBackground
-    }
-    
 }

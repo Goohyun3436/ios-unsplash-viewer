@@ -23,5 +23,11 @@ final class AppAppearance {
         appearanceN.largeTitleTextAttributes = [.foregroundColor: UIColor.label]
         UINavigationBar.appearance().standardAppearance = appearanceN
         UINavigationBar.appearance().scrollEdgeAppearance = appearanceN
+        
+        BaseView.appearance().backgroundColor = UIColor.systemBackground
+        UIStackView.appearance().backgroundColor = UIColor.systemBackground
+        UILabel.appearance().textColor = UIColor.label
+        UIButton.appearance().setTitleColor(UIColor.label, for: .normal)
+        UIButton.appearance().tintColor = UIColor.label
     }
 }

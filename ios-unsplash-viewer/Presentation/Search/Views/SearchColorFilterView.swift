@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class SearchColorFilterView: BaseScrollView {
+final class SearchColorFilterView: BaseScrollView {
     
     //MARK: - UI Property
     private let contentView = UIStackView()
@@ -76,7 +76,6 @@ class SearchColorFilterView: BaseScrollView {
             item.contentEdgeInsets = UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 8)
             item.backgroundColor = UIColor.systemGray6
             item.titleLabel?.font = UIFont.systemFont(ofSize: 12, weight: .semibold)
-            item.setTitleColor(UIColor.label, for: .normal)
         }
     }
     

@@ -7,7 +7,7 @@
 
 import UIKit
 
-class PhotoSearchBar: BaseSearchBar {
+final class PhotoSearchBar: BaseSearchBar {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
