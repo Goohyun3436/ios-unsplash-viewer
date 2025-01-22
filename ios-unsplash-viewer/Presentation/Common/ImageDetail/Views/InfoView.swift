@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class InfoView: BaseView {
+final class InfoView: BaseView {
     
     //MARK: - UI Property
     private let titleLabel = UILabel()

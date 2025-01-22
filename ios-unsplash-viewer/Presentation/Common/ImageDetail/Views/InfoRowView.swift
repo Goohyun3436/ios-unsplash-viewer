@@ -7,7 +7,7 @@
 
 import UIKit
 
-class InfoRowView: BaseStackView {
+final class InfoRowView: BaseStackView {
     
     //MARK: - UI Property
     private let titleLabel = UILabel()

@@ -9,7 +9,7 @@ import UIKit
 import Kingfisher
 import SnapKit
 
-class UserView: BaseView {
+final class UserView: BaseView {
     
     //MARK: - UI Property
     private let profileImageView = UIImageView()

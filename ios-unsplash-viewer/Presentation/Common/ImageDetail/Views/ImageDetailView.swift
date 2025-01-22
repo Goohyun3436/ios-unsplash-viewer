@@ -9,7 +9,7 @@ import UIKit
 import Kingfisher
 import SnapKit
 
-class ImageDetailView: BaseView {
+final class ImageDetailView: BaseView {
     
     //MARK: - UI Property
     private let scrollView = UIScrollView()

@@ -20,12 +20,8 @@ extension UIViewController {
     }
     
     func presentImageDetailView(_ selectedPhoto: Photo) {
-        // https://gist.github.com/salvar-labs/f574927b77d466e332261ac1647e19a4
         let vc = ImageDetailViewController()
         vc.photo = selectedPhoto
-        
-        // navigationController가 nil 인 이유? -> self 가 tabBarController -> TBC의 VCs에 접근할 수 있는 방법?
-//        navigationController?.pushViewController(vc, animated: true)
         
         let nav = UINavigationController(rootViewController: vc)
         nav.modalPresentationStyle = .fullScreen

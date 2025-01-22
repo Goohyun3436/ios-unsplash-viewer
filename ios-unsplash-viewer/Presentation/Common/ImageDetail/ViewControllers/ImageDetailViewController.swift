@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ImageDetailViewController: UIViewController {
+final class ImageDetailViewController: UIViewController {
     
     //MARK: - UI Property
     private let mainView = ImageDetailView()
