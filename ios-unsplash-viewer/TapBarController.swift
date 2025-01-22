@@ -1,5 +1,5 @@
 //
-//  TapBarController.swift
+//  TabBarController.swift
 //  ios-unsplash-viewer
 //
 //  Created by Goo on 1/17/25.
@@ -53,7 +53,7 @@ private enum TabBar: CaseIterable {
     }
 }
 
-final class TapBarController: UITabBarController {
+final class TabBarController: UITabBarController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
