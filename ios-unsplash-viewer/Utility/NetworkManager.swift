@@ -25,13 +25,13 @@ class NetworkManager {
             method: request.method,
             parameters: request.parameters,
             headers: request.header
-        ).responseDecodable(of: responseT) { response in            
+        ).responseDecodable(of: responseT) { response in
             switch response.result {
-                case .success(let data):
-                    completionHandler(data)
+            case .success(let data):
+                completionHandler(data)
                     
-                case .failure(_):
-                    failHandler(ResponseStatusUnsplash(response.response?.statusCode ?? 0))
+            case .failure(_):
+                failHandler(ResponseStatusUnsplash(response.response?.statusCode ?? 0))
             }
         }
     }

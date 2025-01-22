@@ -25,33 +25,33 @@ enum UnsplashRequest {
     
     var path: String {
         switch self {
-            case .topicsPhotos(let topic, _, _):
-                return "/topics/\(topic.rawValue)/photos"
-            case .searchPhotos:
-                return "/search/photos"
-            case .photosStatistics(let imageId):
-                return "/photos/\(imageId)/statistics"
+        case .topicsPhotos(let topic, _, _):
+            return "/topics/\(topic.rawValue)/photos"
+        case .searchPhotos:
+            return "/search/photos"
+        case .photosStatistics(let imageId):
+            return "/photos/\(imageId)/statistics"
         }
     }
     
     var parameters: Parameters {
         switch self {
-            case .topicsPhotos(_, let page, let perPage):
-                return [
-                    "page": page,
-                    "per_page": perPage
-                ]
-            case .searchPhotos(let query, let page, let perPage, let orderBy, let color):
-                var query = [
-                    "query": query,
-                    "page": "\(page)",
-                    "per_page": "\(perPage)",
-                    "order_by": orderBy.rawValue,
-                ]
-                query["color"] = color?.rawValue
-                return query
-            case .photosStatistics:
-                return [:]
+        case .topicsPhotos(_, let page, let perPage):
+            return [
+                "page": page,
+                "per_page": perPage
+            ]
+        case .searchPhotos(let query, let page, let perPage, let orderBy, let color):
+            var query = [
+                "query": query,
+                "page": "\(page)",
+                "per_page": "\(perPage)",
+                "order_by": orderBy.rawValue
+            ]
+            query["color"] = color?.rawValue
+            return query
+        case .photosStatistics:
+            return [:]
         }
     }
     
@@ -65,12 +65,12 @@ enum UnsplashRequest {
     
     var responsType: Decodable.Type {
         switch self {
-            case .topicsPhotos:
-                return [Photo].self
-            case .searchPhotos:
-                return SearchPhotos.self
-            case .photosStatistics:
-                return PhotosStatistics.self
+        case .topicsPhotos:
+            return [Photo].self
+        case .searchPhotos:
+            return SearchPhotos.self
+        case .photosStatistics:
+            return PhotosStatistics.self
         }
     }
 }
