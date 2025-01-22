@@ -7,7 +7,7 @@
 
 import UIKit
 
-class TopicViewController: UIViewController {
+final class TopicViewController: UIViewController {
     
     //MARK: - UI Property
     private lazy var mainView = TopicView(refreshHandler: {
@@ -26,12 +26,10 @@ class TopicViewController: UIViewController {
     }
     
     //MARK: - Method
-    func fetchRandomTopics() {
+    private func fetchRandomTopics() {
         var responseStatus: ResponseStatusUnsplash?
         let randomTopics = Array(Topic.allCases.shuffled().prefix(3))
         var photos = [[Photo]?]()
-        
-        // 데이터 받아오는 동안 탭바 버튼 눌림, 메인 스레드 + 동기적으로 실행해야 하는지?
         
         let group = DispatchGroup()
         

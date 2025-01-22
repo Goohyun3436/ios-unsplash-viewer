@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class TopicBannerView: BaseStackView {
+final class TopicBannerView: BaseStackView {
     
     //MARK: - UI Property
     private let topicLabel = UILabel()

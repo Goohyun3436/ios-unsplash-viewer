@@ -8,25 +8,25 @@
 import UIKit
 import SnapKit
 
-class TopicView: BaseView {
+final class TopicView: BaseView {
     
     //MARK: - UI Property
-    lazy var scrollView = {
+    private lazy var scrollView = {
         let view = UIScrollView()
         view.refreshControl = UIRefreshControl()
         view.refreshControl?.addTarget(self, action: #selector(refreshHandler), for: .valueChanged)
         return view
     }()
     private let contentView = UIStackView()
-    let topicBannerViews = [
+    private let topicBannerViews = [
         TopicBannerView(),
         TopicBannerView(),
         TopicBannerView()
     ]
     
     //MARK: - Property
-    let timer = DispatchTimeInterval.seconds(30)
-    var isValid: Bool = true
+    private let timer = DispatchTimeInterval.seconds(30)
+    private var isValid: Bool = true
     private var refresh: (() -> Void)?
     
     //MARK: - Initializer Method

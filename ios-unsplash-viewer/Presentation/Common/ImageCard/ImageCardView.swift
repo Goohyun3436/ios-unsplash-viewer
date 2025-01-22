@@ -9,7 +9,7 @@ import UIKit
 import Kingfisher
 import SnapKit
 
-class ImageCardView: BaseImageView {
+final class ImageCardView: BaseImageView {
     
     //MARK: - UI Property
     private let starWrapView = UIStackView()
