@@ -7,7 +7,53 @@
 
 import UIKit
 
-class TapBarController: UITabBarController {
+private enum TabBar: CaseIterable {
+    case topic
+    case video
+    case search
+    case user
+    
+    var vc: UIViewController.Type {
+        switch self {
+        case .topic:
+            return TopicViewController.self
+        case .video:
+            return DummyViewController.self
+        case .search:
+            return SearchViewController.self
+        case .user:
+            return DummyViewController.self
+        }
+    }
+    
+    var title: String {
+        switch self {
+        case .topic:
+            return "OUR TOPIC"
+        case .video:
+            return "VIDEO"
+        case .search:
+            return "SEARCH PHOTO"
+        case .user:
+            return "MY"
+        }
+    }
+    
+    var icon: String {
+        switch self {
+        case .topic:
+            return "chart.xyaxis.line"
+        case .video:
+            return "play.rectangle"
+        case .search:
+            return "magnifyingglass"
+        case .user:
+            return "heart"
+        }
+    }
+}
+
+final class TapBarController: UITabBarController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -16,15 +62,17 @@ class TapBarController: UITabBarController {
     }
     
     private func configureTBC() {
-        let topicNav = makeNav(TopicViewController(), title: "OUR TOPIC", icon: "chart.xyaxis.line")
-        let videoNav = makeNav(DummyViewController(), title: "준비중", icon: "play.rectangle")
-        let searchNav = makeNav(SearchViewController(), title: "SEARCH PHOTO", icon: "magnifyingglass")
-        let likeNav = makeNav(DummyViewController(), title: "준비중", icon: "heart")
+        let tabs = TabBar.allCases
+        var navs = [UINavigationController]()
         
-        setViewControllers([topicNav, videoNav, searchNav, likeNav], animated: true)
+        for item in tabs {
+            navs.append(makeNav(item.vc.init(), item.title, item.icon))
+        }
+        
+        setViewControllers(navs, animated: true)
     }
     
-    private func makeNav(_ viewController: UIViewController, title: String, icon: String) -> UINavigationController {
+    private func makeNav(_ viewController: UIViewController, _ title: String, _ icon: String) -> UINavigationController {
         let vc = viewController
         let nav = UINavigationController(rootViewController: vc)
         vc.navigationItem.title = title
