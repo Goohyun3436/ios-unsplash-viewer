@@ -23,6 +23,13 @@ class ProfileViewController: UIViewController {
     let birthdayLabel = UILabel()
     let levelLabel = UILabel()
     
+    //MARK: - Property
+    var nickName: String? {
+        didSet {
+            nicknameLabel.text = nickName
+        }
+    }
+    
     //MARK: - Override Method
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,6 +56,7 @@ class ProfileViewController: UIViewController {
     func nicknameButtonTapped() {
         let vc = NicknameViewController()
         vc.passData = self
+        vc.textField.text = nickName
         navigationController?.pushViewController(vc, animated: true)
     }
     
@@ -145,7 +153,7 @@ class ProfileViewController: UIViewController {
 extension ProfileViewController: PassDataDelegate {
     
     func nicknameReceived(_ name: String?) {
-        nicknameLabel.text = name
+        nickName = name
     }
     
 }
