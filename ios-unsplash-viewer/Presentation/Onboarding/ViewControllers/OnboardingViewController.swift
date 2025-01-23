@@ -33,13 +33,12 @@ class OnboardingViewController: UIViewController {
     
     @objc
     func buttonTapped() {
-        let vc = ProfileViewController()
-        
         guard let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
               let window = scene.windows.first else {
             return
         }
         
+        let vc = ProfileViewController()
         window.rootViewController = UINavigationController(rootViewController: vc)
     }
     

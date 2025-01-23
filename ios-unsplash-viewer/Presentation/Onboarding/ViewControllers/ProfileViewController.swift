@@ -21,12 +21,19 @@ class ProfileViewController: UIViewController {
     //MARK: - Override Method
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         configureView()
     }
 
     //MARK: - Method
-    @objc func okButtonTapped() {
-        print(#function)
+    @objc
+    func okButtonTapped() {
+        guard let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+              let window = scene.windows.first else {
+            return
+        }
+        
+        window.rootViewController = OnboardingViewController()
     }
     
     //MARK: - Configure Method
