@@ -17,8 +17,28 @@ class OnboardingViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        saveOnboarding(true)
-
+        configureView()
+        button.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
+        
+        let isOnboardingStart = UserDefaults.standard.bool(forKey: "isOnboardingStart")
+        
+        if isOnboardingStart {
+            buttonTapped()
+        }
+    }
+    
+    deinit {
+        UserDefaults.standard.set(true, forKey: "isOnboardingStart")
+    }
+    
+    //MARK: - Method
+    @objc
+    func buttonTapped() {
+        let vc = UINavigationController(rootViewController: ProfileViewController())
+        configureRootVC(vc)
+    }
+    
+    func configureView() {
         view.backgroundColor = .darkGray
         view.addSubview(button)
         button.snp.makeConstraints { make in
@@ -29,28 +49,6 @@ class OnboardingViewController: UIViewController {
         button.backgroundColor = .white
         button.setTitleColor(.darkGray, for: .normal)
         button.setTitle("시작하기", for: .normal)
-        
-        button.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
-    }
-    
-    deinit {
-        saveOnboarding(false)
-    }
-    
-    //MARK: - Method
-    func saveOnboarding(_ isOnboarding: Bool) {
-        UserDefaults.standard.set(isOnboarding, forKey: "isOnboarding")
-    }
-    
-    @objc
-    func buttonTapped() {
-        guard let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
-              let window = scene.windows.first else {
-            return
-        }
-        
-        let vc = ProfileViewController()
-        window.rootViewController = UINavigationController(rootViewController: vc)
     }
     
 }

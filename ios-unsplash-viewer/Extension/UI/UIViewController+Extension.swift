@@ -35,4 +35,13 @@ extension UIViewController {
         alert.addAction(ok)
         present(alert, animated: true)
     }
+    
+    func configureRootVC(_ vc: UIViewController) {
+        guard let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+              let window = scene.windows.first else {
+            return
+        }
+        
+        window.rootViewController = vc
+    }
 }

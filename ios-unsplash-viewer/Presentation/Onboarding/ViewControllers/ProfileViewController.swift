@@ -95,6 +95,8 @@ class ProfileViewController: UIViewController {
         UserDefaults.standard.removeObject(forKey: "nickname")
         UserDefaults.standard.removeObject(forKey: "birthday")
         UserDefaults.standard.removeObject(forKey: "level")
+        UserDefaults.standard.set(true, forKey: "isOnboarding")
+        UserDefaults.standard.set(false, forKey: "isOnboardingStart")
     }
     
     @objc
@@ -125,10 +127,11 @@ class ProfileViewController: UIViewController {
     
     @objc
     func saveButtonTapped() {
-        print(#function)
         UserDefaults.standard.set(nickname, forKey: "nickname")
         UserDefaults.standard.set(birthday, forKey: "birthday")
         UserDefaults.standard.set(level, forKey: "level")
+        UserDefaults.standard.set(false, forKey: "isOnboarding")
+        configureRootVC(TabBarController())
     }
     
     func checkSaveButtonActive() {
