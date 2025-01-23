@@ -10,6 +10,7 @@ import SnapKit
 
 protocol PassDataDelegate {
     func nicknameReceived(_ name: String?)
+    func birthdayReceived(_ date: Date)
 }
 
 class ProfileViewController: UIViewController {
@@ -27,6 +28,11 @@ class ProfileViewController: UIViewController {
     var nickName: String? {
         didSet {
             nicknameLabel.text = nickName
+        }
+    }
+    var birthday: Date? {
+        didSet {
+            birthdayLabel.text = birthday?.formatted(date: .numeric, time: .omitted)
         }
     }
     
@@ -62,7 +68,12 @@ class ProfileViewController: UIViewController {
     
     @objc
     func birthdayButtonTapped() {
-        navigationController?.pushViewController(BirthdayViewController(), animated: true)
+        let vc = BirthdayViewController()
+        vc.passData = self
+        if let birthday {
+            vc.datePicker.date = birthday
+        }
+        navigationController?.pushViewController(vc, animated: true)
     }
     
     @objc
@@ -154,6 +165,10 @@ extension ProfileViewController: PassDataDelegate {
     
     func nicknameReceived(_ name: String?) {
         nickName = name
+    }
+    
+    func birthdayReceived(_ date: Date) {
+        birthday = date
     }
     
 }

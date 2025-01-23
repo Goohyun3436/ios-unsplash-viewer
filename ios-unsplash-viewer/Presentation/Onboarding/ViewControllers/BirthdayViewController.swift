@@ -13,16 +13,27 @@ class BirthdayViewController: UIViewController {
     //MARK: - UI Property
     let datePicker = UIDatePicker()
     
+    //MARK: - Property
+    var passData: PassDataDelegate?
+    
     //MARK: - Override Method
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         configureView()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        okButtonTapped()
     }
     
     //MARK: - Method
     @objc
     func okButtonTapped() {
-        print(#function)
+        passData?.birthdayReceived(datePicker.date)
+        navigationController?.popViewController(animated: true)
     }
     
     //MARK: - Configure Method
