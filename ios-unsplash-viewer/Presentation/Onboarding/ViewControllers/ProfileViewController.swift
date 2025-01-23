@@ -11,6 +11,7 @@ import SnapKit
 protocol PassDataDelegate {
     func nicknameReceived(_ name: String?)
     func birthdayReceived(_ date: Date)
+    func levelReceived(_ level: Int?)
 }
 
 class ProfileViewController: UIViewController {
@@ -35,6 +36,12 @@ class ProfileViewController: UIViewController {
             birthdayLabel.text = birthday?.formatted(date: .numeric, time: .omitted)
         }
     }
+    var level: Int? {
+        didSet {
+            levelLabel.text = ["상", "중", "하"][level ?? 2]
+        }
+    }
+    
     
     //MARK: - Override Method
     override func viewDidLoad() {
@@ -78,7 +85,10 @@ class ProfileViewController: UIViewController {
     
     @objc
     func levelButtonTapped() {
-        navigationController?.pushViewController(LevelViewController(), animated: true)
+        let vc = LevelViewController()
+        vc.passData = self
+        vc.segmentedControl.selectedSegmentIndex = level ?? 2
+        navigationController?.pushViewController(vc, animated: true)
     }
     
     //MARK: - Configure Method
@@ -169,6 +179,10 @@ extension ProfileViewController: PassDataDelegate {
     
     func birthdayReceived(_ date: Date) {
         birthday = date
+    }
+    
+    func levelReceived(_ level: Int?) {
+        self.level = level
     }
     
 }

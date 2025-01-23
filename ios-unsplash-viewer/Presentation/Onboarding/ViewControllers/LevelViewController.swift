@@ -10,19 +10,30 @@ import SnapKit
 
 class LevelViewController: UIViewController {
 
-    //MARK: - Property
+    //MARK: - UI Property
     let segmentedControl = UISegmentedControl(items: ["상", "중", "하"])
+    
+    //MARK: - Property
+    var passData: PassDataDelegate?
     
     //MARK: - Override Method
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         configureView()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        okButtonTapped()
     }
     
     //MARK: - Method
     @objc
     func okButtonTapped() {
-        print(#function)
+        passData?.levelReceived(segmentedControl.selectedSegmentIndex)
+        navigationController?.popViewController(animated: true)
     }
     
     //MARK: - Configure Method
@@ -35,7 +46,6 @@ class LevelViewController: UIViewController {
             make.centerX.top.equalTo(view.safeAreaLayoutGuide)
             make.width.equalTo(view.safeAreaLayoutGuide).inset(24)
         }
-        segmentedControl.selectedSegmentIndex = 0
     }
 
 }
