@@ -19,7 +19,9 @@ class OnboardingViewController: UIViewController {
         
         configureView()
         button.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
-        
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
         let isOnboardingStart = UserDefaults.standard.bool(forKey: "isOnboardingStart")
         
         if isOnboardingStart {
