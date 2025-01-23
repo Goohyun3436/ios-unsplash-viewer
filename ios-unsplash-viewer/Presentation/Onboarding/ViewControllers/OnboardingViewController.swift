@@ -27,6 +27,20 @@ class OnboardingViewController: UIViewController {
         button.backgroundColor = .white
         button.setTitleColor(.darkGray, for: .normal)
         button.setTitle("시작하기", for: .normal)
+        
+        button.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
+    }
+    
+    @objc
+    func buttonTapped() {
+        let vc = ProfileViewController()
+        
+        guard let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+              let window = scene.windows.first else {
+            return
+        }
+        
+        window.rootViewController = UINavigationController(rootViewController: vc)
     }
     
 }
