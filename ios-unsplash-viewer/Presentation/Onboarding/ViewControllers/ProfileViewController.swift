@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SnapKit
 
 class ProfileViewController: UIViewController {
 
@@ -23,11 +24,15 @@ class ProfileViewController: UIViewController {
         super.viewDidLoad()
         
         configureView()
+        
+        nicknameButton.addTarget(self, action: #selector(nicknameButtonTapped), for: .touchUpInside)
+        birthdayButton.addTarget(self, action: #selector(birthdayButtonTapped), for: .touchUpInside)
+        levelButton.addTarget(self, action: #selector(levelButtonTapped), for: .touchUpInside)
     }
 
     //MARK: - Method
     @objc
-    func okButtonTapped() {
+    func quitButtonTapped() {
         guard let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
               let window = scene.windows.first else {
             return
@@ -36,10 +41,25 @@ class ProfileViewController: UIViewController {
         window.rootViewController = OnboardingViewController()
     }
     
+    @objc
+    func nicknameButtonTapped() {
+        navigationController?.pushViewController(NicknameViewController(), animated: true)
+    }
+    
+    @objc
+    func birthdayButtonTapped() {
+        navigationController?.pushViewController(BirthdayViewController(), animated: true)
+    }
+    
+    @objc
+    func levelButtonTapped() {
+        navigationController?.pushViewController(LevelViewController(), animated: true)
+    }
+    
     //MARK: - Configure Method
     func configureView() {
         navigationItem.title = "프로필 화면"
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "탈퇴하기", style: .plain, target: self, action: #selector(okButtonTapped))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "탈퇴하기", style: .plain, target: self, action: #selector(quitButtonTapped))
         view.backgroundColor = .white
         
         view.addSubview(nicknameButton)
