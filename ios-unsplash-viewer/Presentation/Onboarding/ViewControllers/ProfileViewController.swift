@@ -127,10 +127,12 @@ class ProfileViewController: UIViewController {
     
     @objc
     func saveButtonTapped() {
-        UserDefaults.standard.set(nickname, forKey: "nickname")
-        UserDefaults.standard.set(birthday, forKey: "birthday")
-        UserDefaults.standard.set(level, forKey: "level")
-        UserDefaults.standard.set(false, forKey: "isOnboarding")
+        DispatchQueue.global().async {
+            UserDefaults.standard.set(self.nickname, forKey: "nickname")
+            UserDefaults.standard.set(self.birthday, forKey: "birthday")
+            UserDefaults.standard.set(self.level, forKey: "level")
+            UserDefaults.standard.set(false, forKey: "isOnboarding")
+        }
         configureRootVC(TabBarController())
     }
     
