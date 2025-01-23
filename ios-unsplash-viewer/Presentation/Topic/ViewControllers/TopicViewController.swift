@@ -22,6 +22,7 @@ final class TopicViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        configureProfileButton()
         fetchRandomTopics()
     }
     
@@ -54,6 +55,16 @@ final class TopicViewController: UIViewController {
             self.mainView.configureData(randomTopics, photos)
             self.mainView.endRefreshing()
         }
+    }
+    
+    func configureProfileButton() {
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "person.crop.circle"), style: .plain, target: self, action: #selector(profileButtonTapped))
+    }
+    
+    @objc
+    func profileButtonTapped() {
+        let vc = ProfileViewController()
+        navigationController?.pushViewController(vc, animated: true)
     }
     
 }
