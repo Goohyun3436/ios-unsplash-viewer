@@ -16,6 +16,8 @@ class OnboardingViewController: UIViewController {
     //MARK: - Override Method
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        saveOnboarding(true)
 
         view.backgroundColor = .darkGray
         view.addSubview(button)
@@ -29,6 +31,15 @@ class OnboardingViewController: UIViewController {
         button.setTitle("시작하기", for: .normal)
         
         button.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
+    }
+    
+    deinit {
+        saveOnboarding(false)
+    }
+    
+    //MARK: - Method
+    func saveOnboarding(_ isOnboarding: Bool) {
+        UserDefaults.standard.set(isOnboarding, forKey: "isOnboarding")
     }
     
     @objc
