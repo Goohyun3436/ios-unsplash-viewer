@@ -8,6 +8,10 @@
 import UIKit
 import SnapKit
 
+protocol PassDataDelegate {
+    func nicknameReceived(_ name: String?)
+}
+
 class ProfileViewController: UIViewController {
 
     //MARK: - UI Property
@@ -43,7 +47,9 @@ class ProfileViewController: UIViewController {
     
     @objc
     func nicknameButtonTapped() {
-        navigationController?.pushViewController(NicknameViewController(), animated: true)
+        let vc = NicknameViewController()
+        vc.passData = self
+        navigationController?.pushViewController(vc, animated: true)
     }
     
     @objc
@@ -134,4 +140,12 @@ class ProfileViewController: UIViewController {
         levelLabel.textAlignment = .right
     }
 
+}
+
+extension ProfileViewController: PassDataDelegate {
+    
+    func nicknameReceived(_ name: String?) {
+        nicknameLabel.text = name
+    }
+    
 }

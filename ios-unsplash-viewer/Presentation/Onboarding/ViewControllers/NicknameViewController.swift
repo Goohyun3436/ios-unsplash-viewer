@@ -13,19 +13,33 @@ class NicknameViewController: UIViewController {
     //MARK: - UI Property
     let textField = UITextField()
     
+    //MARK: - Property
+    var passData: PassDataDelegate?
+    
     //MARK: - Override Method
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         configureView()
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        okButtonTapped()
+    }
+    
     //MARK: - Method
-    @objc func okButtonTapped() {
-        print(#function)
+    @objc
+    func okButtonTapped() {
+        passData?.nicknameReceived(textField.text)
+        navigationController?.popViewController(animated: true)
     }
     
     //MARK: - Configure Method
     func configureView() {
+        textField.delegate = self
+        
         navigationItem.title = "닉네임"
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "확인", style: .plain, target: self, action: #selector(okButtonTapped))
         view.backgroundColor = .white
@@ -35,6 +49,16 @@ class NicknameViewController: UIViewController {
             make.width.equalTo(view.safeAreaLayoutGuide).inset(24)
         }
         textField.placeholder = "닉네임을 입력해주세요"
+    }
+    
+}
+
+//MARK: - UITextField
+extension NicknameViewController: UITextFieldDelegate {
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        okButtonTapped()
+        return true
     }
     
 }
