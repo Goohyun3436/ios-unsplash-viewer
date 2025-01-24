@@ -26,7 +26,7 @@ final class LevelViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
-        okButtonTapped()
+        passData?.levelReceived(segmentedControl.selectedSegmentIndex)
     }
     
     //MARK: - Method

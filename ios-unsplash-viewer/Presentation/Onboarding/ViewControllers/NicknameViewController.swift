@@ -26,7 +26,7 @@ final class NicknameViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
-        okButtonTapped()
+        passData?.nicknameReceived(textField.text)
     }
     
     //MARK: - Method

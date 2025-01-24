@@ -26,7 +26,7 @@ final class BirthdayViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
-        okButtonTapped()
+        passData?.birthdayReceived(datePicker.date)
     }
     
     //MARK: - Method
