@@ -8,10 +8,10 @@
 import UIKit
 import SnapKit
 
-class OnboardingViewController: UIViewController {
+final class OnboardingViewController: UIViewController {
     
     //MARK: - UI Property
-    let button = UIButton()
+    private let button = UIButton()
     
     //MARK: - Override Method
     override func viewDidLoad() {
@@ -35,12 +35,12 @@ class OnboardingViewController: UIViewController {
     
     //MARK: - Method
     @objc
-    func buttonTapped() {
+    private func buttonTapped() {
         let vc = UINavigationController(rootViewController: ProfileViewController())
         configureRootVC(vc)
     }
     
-    func configureView() {
+    private func configureView() {
         view.backgroundColor = .darkGray
         view.addSubview(button)
         button.snp.makeConstraints { make in

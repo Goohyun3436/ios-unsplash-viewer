@@ -14,21 +14,21 @@ protocol PassDataDelegate {
     func levelReceived(_ level: Int?)
 }
 
-class ProfileViewController: UIViewController {
+final class ProfileViewController: UIViewController {
 
     //MARK: - UI Property
-    let nicknameButton = UIButton()
-    let birthdayButton = UIButton()
-    let levelButton = UIButton()
+    private let nicknameButton = UIButton()
+    private let birthdayButton = UIButton()
+    private let levelButton = UIButton()
     
-    let nicknameLabel = UILabel()
-    let birthdayLabel = UILabel()
-    let levelLabel = UILabel()
+    private let nicknameLabel = UILabel()
+    private let birthdayLabel = UILabel()
+    private let levelLabel = UILabel()
     
-    let saveButton = UIButton()
+    private let saveButton = UIButton()
     
     //MARK: - Property
-    var nickname: String? {
+    private var nickname: String? {
         didSet {
             if let nickname {
                 nicknameLabel.text = nickname
@@ -39,7 +39,7 @@ class ProfileViewController: UIViewController {
             checkSaveButtonActive()
         }
     }
-    var birthday: Date? {
+    private var birthday: Date? {
         didSet {
             if let birthday {
                 birthdayLabel.text = birthday.formatted(date: .numeric, time: .omitted)
@@ -50,7 +50,7 @@ class ProfileViewController: UIViewController {
             checkSaveButtonActive()
         }
     }
-    var level: Int? {
+    private var level: Int? {
         didSet {
             if let level {
                 levelLabel.text = ["상", "중", "하"][level]
@@ -84,7 +84,7 @@ class ProfileViewController: UIViewController {
 
     //MARK: - Method
     @objc
-    func quitButtonTapped() {
+    private func quitButtonTapped() {
         guard let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
               let window = scene.windows.first else {
             return
@@ -100,7 +100,7 @@ class ProfileViewController: UIViewController {
     }
     
     @objc
-    func nicknameButtonTapped() {
+    private func nicknameButtonTapped() {
         let vc = NicknameViewController()
         vc.passData = self
         vc.textField.text = nickname
@@ -108,7 +108,7 @@ class ProfileViewController: UIViewController {
     }
     
     @objc
-    func birthdayButtonTapped() {
+    private func birthdayButtonTapped() {
         let vc = BirthdayViewController()
         vc.passData = self
         if let birthday {
@@ -118,7 +118,7 @@ class ProfileViewController: UIViewController {
     }
     
     @objc
-    func levelButtonTapped() {
+    private func levelButtonTapped() {
         let vc = LevelViewController()
         vc.passData = self
         vc.segmentedControl.selectedSegmentIndex = level ?? 0
@@ -126,7 +126,7 @@ class ProfileViewController: UIViewController {
     }
     
     @objc
-    func saveButtonTapped() {
+    private func saveButtonTapped() {
         DispatchQueue.global().async {
             UserDefaults.standard.set(self.nickname, forKey: "nickname")
             UserDefaults.standard.set(self.birthday, forKey: "birthday")
@@ -136,7 +136,7 @@ class ProfileViewController: UIViewController {
         configureRootVC(TabBarController())
     }
     
-    func checkSaveButtonActive() {
+    private func checkSaveButtonActive() {
         if let nickname, let birthday, let level {
             saveButton.setTitleColor(UIColor.white, for: .normal)
             saveButton.backgroundColor = UIColor.black
@@ -147,7 +147,7 @@ class ProfileViewController: UIViewController {
     }
     
     //MARK: - Configure Method
-    func configureView() {
+    private func configureView() {
         navigationItem.title = "프로필 화면"
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "탈퇴하기", style: .plain, target: self, action: #selector(quitButtonTapped))
         view.backgroundColor = .white

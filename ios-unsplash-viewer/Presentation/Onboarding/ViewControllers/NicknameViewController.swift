@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class NicknameViewController: UIViewController {
+final class NicknameViewController: UIViewController {
     
     //MARK: - UI Property
     let textField = UITextField()
@@ -31,13 +31,13 @@ class NicknameViewController: UIViewController {
     
     //MARK: - Method
     @objc
-    func okButtonTapped() {
+    private func okButtonTapped() {
         passData?.nicknameReceived(textField.text)
         navigationController?.popViewController(animated: true)
     }
     
     //MARK: - Configure Method
-    func configureView() {
+    private func configureView() {
         textField.delegate = self
         
         navigationItem.title = "닉네임"

@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class BirthdayViewController: UIViewController {
+final class BirthdayViewController: UIViewController {
 
     //MARK: - UI Property
     let datePicker = UIDatePicker()
@@ -31,13 +31,13 @@ class BirthdayViewController: UIViewController {
     
     //MARK: - Method
     @objc
-    func okButtonTapped() {
+    private func okButtonTapped() {
         passData?.birthdayReceived(datePicker.date)
         navigationController?.popViewController(animated: true)
     }
     
     //MARK: - Configure Method
-    func configureView() {
+    private func configureView() {
         navigationItem.title = "생일"
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "확인", style: .plain, target: self, action: #selector(okButtonTapped))
         view.backgroundColor = .white

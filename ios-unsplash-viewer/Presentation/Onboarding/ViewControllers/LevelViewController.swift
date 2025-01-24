@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class LevelViewController: UIViewController {
+final class LevelViewController: UIViewController {
 
     //MARK: - UI Property
     let segmentedControl = UISegmentedControl(items: ["상", "중", "하"])
@@ -31,13 +31,13 @@ class LevelViewController: UIViewController {
     
     //MARK: - Method
     @objc
-    func okButtonTapped() {
+    private func okButtonTapped() {
         passData?.levelReceived(segmentedControl.selectedSegmentIndex)
         navigationController?.popViewController(animated: true)
     }
     
     //MARK: - Configure Method
-    func configureView() {
+    private func configureView() {
         navigationItem.title = "레벨"
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "확인", style: .plain, target: self, action: #selector(okButtonTapped))
         view.backgroundColor = .white
