@@ -20,9 +20,7 @@ extension UIViewController {
     }
     
     func presentImageDetailView(_ selectedPhoto: Photo) {
-        let vc = ImageDetailViewController()
-        vc.photo = selectedPhoto
-        
+        let vc = ImageDetailViewController(photo: selectedPhoto)
         let nav = UINavigationController(rootViewController: vc)
         nav.modalPresentationStyle = .fullScreen
         nav.modalTransitionStyle = .crossDissolve

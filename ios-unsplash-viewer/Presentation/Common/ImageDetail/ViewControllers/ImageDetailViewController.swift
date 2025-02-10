@@ -7,22 +7,17 @@
 
 import UIKit
 
-final class ImageDetailViewController: UIViewController {
+final class ImageDetailViewController: BaseViewController {
     
     //MARK: - UI Property
     private let mainView = ImageDetailView()
     
     //MARK: - Property
-    var photo: Photo? {
-        didSet {
-            if let photo {
-                NetworkManager.shared.unsplashGet(.photosStatistics(photo.id), PhotosStatistics.self) { data in
-                    self.mainView.configureData(photo: photo, statistics: data)
-                } failHandler: { status in
-                    self.presentUnsplashAlert(status)
-                }
-            }
-        }
+    private let viewModel = ImageDetailViewModel()
+    
+    init(photo: Photo) {
+        super.init(nibName: nil, bundle: nil)
+        viewModel.input.photo.value = photo
     }
     
     //MARK: - Override Method
@@ -32,7 +27,24 @@ final class ImageDetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+    }
+    
+    //MARK: - Setup Method
+    override func setupActions() {
         addBackButton()
+    }
+    
+    override func setupBinds() {
+        viewModel.output.photo.lazyBind { [weak self] photo in
+            self?.mainView.configureData(photo)
+        }
+        
+        viewModel.output.statistics.lazyBind { [weak self] statistics in
+            self?.mainView.configureData(statistics)
+        }
+        
+        viewModel.output.status.lazyBind { [weak self] status in
+            self?.presentUnsplashAlert(status)
+        }
     }
 }

@@ -60,13 +60,13 @@ enum ResponseStatusUnsplash {
         case .ok:
             return ""
         case .badRequest:
-            return "사진 가져오기에 실패했습니다."
+            return "리소스 가져오기에 실패했습니다."
         case .unauthorized:
             return "사용자를 찾을 수 없습니다."
         case .forbidden:
             return "접근 권한이 없습니다."
         case .notFound:
-            return "사진 가져오기에 실패했습니다."
+            return "리소스 가져오기에 실패했습니다."
         case .server:
             return "Unsplash 서버에 문제가 생겼습니다."
         case .unowned:

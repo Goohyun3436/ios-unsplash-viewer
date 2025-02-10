@@ -20,7 +20,6 @@ final class UserView: BaseView {
     func configureData(_ user: User, _ createdAt: String) {
         let url = URL(string: user.profile_image.small)
         profileImageView.kf.setImage(with: url)
-        profileImageView.configureCircle()
         nameLabel.text = user.name
         dateLabel.text = createdAt
     }
@@ -51,6 +50,7 @@ final class UserView: BaseView {
     
     override func configureView() {
         profileImageView.clipsToBounds = true
+        profileImageView.layer.cornerRadius = 17
         profileImageView.backgroundColor = UIColor.lightGray
         nameLabel.font = UIFont.systemFont(ofSize: 12, weight: .semibold)
         dateLabel.font = UIFont.systemFont(ofSize: 12, weight: .bold)

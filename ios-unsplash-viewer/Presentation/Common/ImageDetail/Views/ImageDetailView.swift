@@ -19,14 +19,21 @@ final class ImageDetailView: BaseView {
     private let infoView = InfoView()
     
     //MARK: - Configure Method
-    func configureData(photo: Photo, statistics: PhotosStatistics) {
+    func configureData(_ photo: Photo?) {
+        guard let photo else { return }
+        
         userView.configureData(photo.user, photo.created_at_format)
         
         let url = URL(string: photo.urls.regular)
         imageView.kf.setImage(with: url)
         resizeImageView(photo.width, photo.height)
+        infoView.configureData(photo.width, photo.height)
+    }
+    
+    func configureData(_ statistics: PhotosStatistics?) {
+        guard let statistics else { return }
         
-        infoView.configureData(photo.width, photo.height, statistics)
+        infoView.configureData(statistics)
     }
     
     private func resizeImageView(_ width: Int, _ height: Int) {

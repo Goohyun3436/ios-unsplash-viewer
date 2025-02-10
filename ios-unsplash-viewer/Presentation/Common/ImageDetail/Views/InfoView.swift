@@ -20,8 +20,11 @@ final class InfoView: BaseView {
     ]
     
     //MARK: - Configure Method
-    func configureData(_ width: Int, _ height: Int, _ statistics: PhotosStatistics) {
+    func configureData(_ width: Int, _ height: Int) {
         infoRowViews[0].valueLabel.text = "\(width) x \(height)"
+    }
+    
+    func configureData(_ statistics: PhotosStatistics) {
         infoRowViews[1].valueLabel.text = "\(statistics.views.total.formatted())"
         infoRowViews[2].valueLabel.text = "\(statistics.downloads.total.formatted())"
     }
